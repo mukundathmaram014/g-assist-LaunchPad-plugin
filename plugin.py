@@ -295,6 +295,7 @@ def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=
     # implement command handler body here
     return generate_success_response('plugin_py_func3 success.')
 
+#test
 
 if __name__ == '__main__':
     main()
