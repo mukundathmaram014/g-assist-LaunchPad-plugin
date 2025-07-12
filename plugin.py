@@ -24,6 +24,7 @@ import logging
 import os
 from ctypes import byref, windll, wintypes
 from typing import Dict, Optional
+import psutil
 
 
 # Data Types
@@ -54,6 +55,21 @@ def launch_apps(app_paths: list[str]) -> list[str]:
             failed.append(path)
     return failed
 
+#gets file path of running file by name
+def get_app_path_by_name(app_name: str) -> str | None:
+    for proc in psutil.process_iter(['name', 'exe']):
+        try:
+            name = proc.info['name'].lower()
+            if name.endswith(".exe"):
+                name_without_ext = name[:-4]
+            else:
+                name_without_ext = name
+            if name_without_ext == app_name.lower():
+                return proc.info['exe']
+        except (psutil.AccessDenied, psutil.NoSuchProcess):
+            continue
+    return None
+
 def main():
     ''' Main entry point.
 
@@ -81,7 +97,7 @@ def main():
         'shutdown': execute_shutdown_command,
         'launch_mode': launch_mode_command,
         'get_modes': get_modes_command,
-        'plugin_py_func3': execute_func3_command,
+        'list_running_apps': add_mode_from_selection_command,
     }
     cmd = ''
 
@@ -315,32 +331,53 @@ def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None
     modes = read_modes_config()
     return generate_success_response(f"Available modes: {list(modes.keys())}")
 
+def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
+    if not params or "mode" not in params or "apps" not in params:
+        return generate_failure_response("Missing 'mode' or 'apps'.")
 
-def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
-    ''' Command handler for `plugin_py_func3` function
+    mode = params["mode"]
+    apps = params["apps"]
 
-    Customize this function as needed.
+    if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
+        return generate_failure_response("'apps' must be a list of strings.")
+    app_paths = []
 
-    Args:
-        params: Function parameters
+    for app in apps:
+        app_path = get_app_path_by_name(app)
+        if (app_path):
+            app_paths.append(get_app_path_by_name(app))
+        else:
+            return generate_failure_response(f"app {app} is currently not running or not installed in your system")
 
-    Returns:
-        The function return value(s)
-    '''
-    logging.info(f'Executing func3 with params: {params}')
-    # implement command handler body here
-    return generate_success_response('plugin_py_func3 success.')
+    try:
+        with open(CONFIG_FILE, "r+") as f:
+            modes = json.load(f)
+            if mode in modes:
+                return generate_failure_response(f"Mode '{mode}' already exists.")
+            modes[mode] = app_paths
+            f.seek(0)
+            json.dump(modes, f, indent=4)
+            f.truncate()
+        return generate_success_response(f"Mode '{mode}' created with {len(app_paths)} apps.")
+    except Exception as e:
+        logging.error(f"Failed to add mode from selection: {str(e)}")
+        return generate_failure_response("Failed to write to modes config.")
 
 #test
 
 if __name__ == '__main__':
-    # main()
-    print("Manual test starting...")
-    test_params = {"mode": "development"}  # "development" or "work"
-    result = launch_mode_command(test_params)
-    print(result)
+    # # main()
+    # print("Manual test starting...")
+    # test_params = {"mode": "test"}  # "development" or "work" or "test"
+    # result = launch_mode_command(test_params)
+    # print(result)
 
-    #testing get_modes
+    # #testing get_modes
 
-    modes = get_modes_command()
-    print(modes)
+    # modes = get_modes_command()
+    # print(modes)
+
+    #testing list running apps
+    test_params = {"mode" : "test", "apps": ["Notepad", "Postman"]}
+    result2 = add_mode_from_selection_command(test_params)
+    print(result2)
