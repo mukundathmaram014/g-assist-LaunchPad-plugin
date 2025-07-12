@@ -23,11 +23,11 @@ import json
 import logging
 import os
 from ctypes import byref, windll, wintypes
-from typing import Optional
+from typing import Dict, Optional
 
 
 # Data Types
-type Response = dict[bool,Optional[str]]
+Response = Dict[bool,Optional[str]]
 
 LOG_FILE = os.path.join(os.environ.get("USERPROFILE", "."), 'python_plugin.log')
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -298,4 +298,8 @@ def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=
 #test
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print("Manual test starting...")
+    # test_params = {"mode": "development"}  # or "gaming"
+    # result = execute_func1_command()
+    # print(result)
