@@ -80,7 +80,7 @@ def main():
         'initialize': execute_initialize_command,
         'shutdown': execute_shutdown_command,
         'launch_mode': launch_mode_command,
-        'plugin_py_func2': execute_func2_command,
+        'get_modes': get_modes_command,
         'plugin_py_func3': execute_func3_command,
     }
     cmd = ''
@@ -270,17 +270,18 @@ def execute_shutdown_command() -> dict:
 
 
 def launch_mode_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
-    ''' Command handler for `plugin_py_func1` function
-
-    Customize this function as needed.
+    ''' 
+    Launches all applications associated with a given mode.
 
     Args:
-        params: Function parameters
+        params: Dictionary containing function parameters. Must include the "mode" key.
+        context: Optional context information (unused).
+        system_info: Optional system information (unused).
 
     Returns:
-        The function return value(s)
+        A success response if all applications launch, or a failure response listing any that failed.
     '''
-    logging.info(f'Executing func1 with params: {params}')
+    logging.info(f'Executing launch_mode_command with params: {params}')
 
     mode = params.get("mode") if params else None
 
@@ -297,20 +298,22 @@ def launch_mode_command(params:dict=None, context:dict=None, system_info:dict=No
     return generate_success_response(f"Mode '{mode}' launched.")
 
 
-def execute_func2_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
-    ''' Command handler for `plugin_py_func2` function
-
-    Customize this function as needed.
+def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
+    ''' 
+    Returns a list of all available modes defined in the modes configuration.
 
     Args:
-        params: Function parameters
+        params: Optional dictionary of function parameters (unused).
+        context: Optional context information (unused).
+        system_info: Optional system information (unused).
 
     Returns:
-        The function return value(s)
+        A success response containing the list of available mode names.
     '''
     logging.info(f'Executing func2 with params: {params}')
-    # implement command handler body here
-    return generate_success_response('plugin_py_func2 success.')
+
+    modes = read_modes_config()
+    return generate_success_response(f"Available modes: {list(modes.keys())}")
 
 
 def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
@@ -336,3 +339,8 @@ if __name__ == '__main__':
     test_params = {"mode": "development"}  # "development" or "work"
     result = launch_mode_command(test_params)
     print(result)
+
+    #testing get_modes
+
+    modes = get_modes_command()
+    print(modes)
