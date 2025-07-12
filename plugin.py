@@ -30,7 +30,29 @@ from typing import Dict, Optional
 Response = Dict[bool,Optional[str]]
 
 LOG_FILE = os.path.join(os.environ.get("USERPROFILE", "."), 'python_plugin.log')
+CONFIG_FILE = os.path.join(os.path.dirname(__file__), "modes.json")
+
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+#reads modes from modes.json
+def read_modes_config():
+    try:
+        with open(CONFIG_FILE, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        logging.error(f"Failed to read modes config: {str(e)}")
+        return {}
+
+#launches apps
+def launch_apps(app_paths: list[str]) -> list[str]:
+    failed = []
+    for path in app_paths:
+        try:
+            os.startfile(path)
+        except Exception as e:
+            logging.error(f"Failed to launch {path}: {str(e)}")
+            failed.append(path)
+    return failed
 
 def main():
     ''' Main entry point.
@@ -57,7 +79,7 @@ def main():
     commands = {
         'initialize': execute_initialize_command,
         'shutdown': execute_shutdown_command,
-        'plugin_py_func1': execute_func1_command,
+        'launch_mode': launch_mode_command,
         'plugin_py_func2': execute_func2_command,
         'plugin_py_func3': execute_func3_command,
     }
@@ -247,7 +269,7 @@ def execute_shutdown_command() -> dict:
     return generate_success_response('shutdown success.')
 
 
-def execute_func1_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
+def launch_mode_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
     ''' Command handler for `plugin_py_func1` function
 
     Customize this function as needed.
@@ -261,29 +283,17 @@ def execute_func1_command(params:dict=None, context:dict=None, system_info:dict=
     logging.info(f'Executing func1 with params: {params}')
 
     mode = params.get("mode") if params else None
-    # "C:\Users\Mukun\AppData\Local\Postman\Postman.exe"
-    MODES = {
-        "development": [
-            r"C:\Users\Mukun\AppData\Local\Postman\Postman.exe",
-        ],
-        "school_work": [
-            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-        ]
-    }
 
-    if not mode or mode not in MODES:
-        return generate_failure_response(f"Invalid or missing mode. Available: {list(MODES.keys())}")
+    if not mode:
+        return generate_failure_response("Missing 'mode' parameter")
 
-    failed = []
-    for path in MODES[mode]:
-        try:
-            os.startfile(path)
-        except Exception as e:
-            logging.error(f"Failed to launch {path}: {str(e)}")
-            failed.append(path)
+    modes = read_modes_config()
+    if mode not in modes:
+        return generate_failure_response(f"Mode '{mode}' not found.")
+    failed = launch_apps(modes[mode])
 
     if failed:
-        return generate_failure_response(f"Failed to launch: {failed}")
+        return generate_failure_response(f"Some apps failed to launch: {failed}")
     return generate_success_response(f"Mode '{mode}' launched.")
 
 
@@ -323,6 +333,6 @@ def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=
 if __name__ == '__main__':
     # main()
     print("Manual test starting...")
-    test_params = {"mode": "school_work"}  # "development" or "school_work"
-    result = execute_func1_command(test_params)
+    test_params = {"mode": "development"}  # "development" or "work"
+    result = launch_mode_command(test_params)
     print(result)
