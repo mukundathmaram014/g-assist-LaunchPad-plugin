@@ -259,9 +259,32 @@ def execute_func1_command(params:dict=None, context:dict=None, system_info:dict=
         The function return value(s)
     '''
     logging.info(f'Executing func1 with params: {params}')
-    
-    # implement command handler body here
-    return generate_success_response('plugin_py_func1 success.')
+
+    mode = params.get("mode") if params else None
+    # "C:\Users\Mukun\AppData\Local\Postman\Postman.exe"
+    MODES = {
+        "development": [
+            r"C:\Users\Mukun\AppData\Local\Postman\Postman.exe",
+        ],
+        "school_work": [
+            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        ]
+    }
+
+    if not mode or mode not in MODES:
+        return generate_failure_response(f"Invalid or missing mode. Available: {list(MODES.keys())}")
+
+    failed = []
+    for path in MODES[mode]:
+        try:
+            os.startfile(path)
+        except Exception as e:
+            logging.error(f"Failed to launch {path}: {str(e)}")
+            failed.append(path)
+
+    if failed:
+        return generate_failure_response(f"Failed to launch: {failed}")
+    return generate_success_response(f"Mode '{mode}' launched.")
 
 
 def execute_func2_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
@@ -300,6 +323,6 @@ def execute_func3_command(params:dict=None, context:dict=None, system_info:dict=
 if __name__ == '__main__':
     # main()
     print("Manual test starting...")
-    # test_params = {"mode": "development"}  # or "gaming"
-    # result = execute_func1_command()
-    # print(result)
+    test_params = {"mode": "school_work"}  # "development" or "school_work"
+    result = execute_func1_command(test_params)
+    print(result)
