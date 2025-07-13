@@ -569,7 +569,7 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
 #test
 
 if __name__ == '__main__':
-    # # main()
+    main()
 
     # testing launching a mode
     # print("Manual test starting...")
@@ -578,9 +578,9 @@ if __name__ == '__main__':
     # print(result)
 
     #testing closing a mode
-    test_params = {"mode": "gaming"}  # "development" or "work" or "test"
-    resultc = close_mode_command(test_params)
-    print(resultc)
+    # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
+    # resultc = close_mode_command(test_params)
+    # print(resultc)
 
 
     # #testing get_modes

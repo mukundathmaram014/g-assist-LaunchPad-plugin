@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "executable": "./g-assist-plugin-python.exe",
+  "executable": "./g-assist-plugin-launchpad.exe",
   "persistent": true,
   "functions": [
     {
