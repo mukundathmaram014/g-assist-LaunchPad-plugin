@@ -333,6 +333,35 @@ def launch_mode_command(params:dict=None, context:dict=None, system_info:dict=No
         return generate_failure_response(f"Some apps failed to launch: {failed}")
     return generate_success_response(f"Mode '{mode}' launched.")
 
+def close_mode_command(params: dict = None, *_args) -> dict:
+
+    '''
+    Closes all applications associated with a given mode by terminating their processes.
+
+    Args:
+        params: Dictionary containing function parameters. Must include the "mode" key.
+        *_args: Additional unused arguments.
+
+    Returns:
+        A success response if all applications are closed, or a failure response listing any that failed.
+    '''
+    logging.info(f'Executing close_mode_command with params: {params}')
+
+    mode = params.get("mode") if params else None
+
+    if not mode:
+        return generate_failure_response("Missing 'mode' parameter")
+
+    modes = read_modes_config()
+    if mode not in modes:
+        return generate_failure_response(f"Mode '{mode}' not found.")
+    
+    failed = close_apps(modes[mode])
+
+    if failed:
+        return generate_failure_response(f"Some apps failed to close: {failed}")
+    return generate_success_response(f"Mode '{mode}' closed.")
+    
 
 def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None) -> dict:
     ''' 
@@ -346,7 +375,7 @@ def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None
     Returns:
         A success response containing the list of available mode names.
     '''
-    logging.info(f'Executing func2 with params: {params}')
+    logging.info(f'Executing get_modes_command with params: {params}')
 
     modes = read_modes_config()
     return generate_success_response(f"Available modes: {list(modes.keys())}")
@@ -362,6 +391,8 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
     Returns:
         Success response if mode is added, or failure response if mode exists, app is not running, or file write fails.
     '''
+
+    logging.info(f'Executing add_mode_from_selection_command with params: {params}')
 
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'.")
@@ -409,6 +440,9 @@ def delete_mode_command(params: dict = None, *_args) -> dict:
         Success response if mode is deleted, or failure response if mode does not exist or file write fails.
     
     '''
+
+    logging.info(f'Executing delete_mode_command with params: {params}')
+
     if not params or "mode" not in params:
         return generate_failure_response("Missing 'mode'")
     
@@ -443,6 +477,8 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
         Success response if apps are added, or failure response if mode does not exist, app is not running, or file write fails.
         Deduplicates apps so only new apps are added to the mode.
     '''
+
+    logging.info(f'Executing add_apps_to_mode_command with params: {params}')
 
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'")
@@ -493,6 +529,8 @@ def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
         Success response if apps are removed, or failure response if mode does not exist or file write fails.
     '''
 
+    logging.info(f'Executing delete_apps_from_mode_command with params: {params}')
+
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'")
     
@@ -527,25 +565,6 @@ def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
     except Exception as e:
         logging.error(f"Failed to delete apps {apps} from mode '{mode}': {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
-    
-def close_mode_command(params: dict = None, *_args) -> dict:
-
-    logging.info(f'Executing close_mode_command with params: {params}')
-
-    mode = params.get("mode") if params else None
-
-    if not mode:
-        return generate_failure_response("Missing 'mode' parameter")
-
-    modes = read_modes_config()
-    if mode not in modes:
-        return generate_failure_response(f"Mode '{mode}' not found.")
-    
-    failed = close_apps(modes[mode])
-
-    if failed:
-        return generate_failure_response(f"Some apps failed to close: {failed}")
-    return generate_success_response(f"Mode '{mode}' closed.")
     
 #test
 
