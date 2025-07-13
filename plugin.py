@@ -30,7 +30,7 @@ import psutil
 # Data Types
 Response = Dict[bool,Optional[str]]
 
-LOG_FILE = os.path.join(os.environ.get("USERPROFILE", "."), 'python_plugin.log')
+LOG_FILE = os.path.join(os.environ.get("USERPROFILE", "."), 'LaunchPad_plugin.log')
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), "modes.json")
 
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -113,10 +113,10 @@ def main():
         'shutdown': execute_shutdown_command,
         'launch_mode': launch_mode_command,
         'get_modes': get_modes_command,
-        'list_running_apps': add_mode_from_selection_command,
+        'list_running_apps': add_mode_command,
         'delete_mode' : delete_mode_command,
         'add_apps_to_mode' : add_apps_to_mode_command,
-        'delete_apps_from_mode' : delete_apps_from_mode_command,
+        'delete_apps_from_mode' : remove_apps_from_mode_command,
         'close_mode' : close_mode_command,
     }
     cmd = ''
@@ -380,7 +380,7 @@ def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None
     modes = read_modes_config()
     return generate_success_response(f"Available modes: {list(modes.keys())}")
 
-def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
+def add_mode_command(params: dict = None, *_args) -> dict:
     '''
     Adds a new mode to modes.json using a selection of running apps.
 
@@ -392,7 +392,7 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
         Success response if mode is added, or failure response if mode exists, app is not running, or file write fails.
     '''
 
-    logging.info(f'Executing add_mode_from_selection_command with params: {params}')
+    logging.info(f'Executing add_mode_command with params: {params}')
 
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'.")
@@ -517,7 +517,7 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
         return generate_failure_response("Failed to write to modes config.")
 
 
-def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
+def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     '''
     Removes one or more apps from an existing mode in modes.json by matching app names (case-insensitive, ignoring .exe) against the stored app paths.
 
@@ -529,7 +529,7 @@ def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
         Success response if apps are removed, or failure response if mode does not exist or file write fails.
     '''
 
-    logging.info(f'Executing delete_apps_from_mode_command with params: {params}')
+    logging.info(f'Executing remove_apps_from_mode_command with params: {params}')
 
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'")
@@ -588,9 +588,9 @@ if __name__ == '__main__':
     # modes = get_modes_command()
     # print(modes)
 
-    #testing add mode from selection command
+    #testing add mode command
     # test_params = {"mode" : "gaming", "apps": ["Notepad", "Steam"]}
-    # result2 = add_mode_from_selection_command(test_params)
+    # result2 = add_mode_command(test_params)
     # print(result2)
 
     #testing delete mode
@@ -603,7 +603,7 @@ if __name__ == '__main__':
     # result4 = add_apps_to_mode_command(test_params)
     # print(result4)
 
-    #testing delete app from mode
+    #testing remove app from mode
     # test_params = {"mode" : "gaming", "apps": ["chrome"]}
-    # result5 = delete_apps_from_mode_command(test_params)
+    # result5 = remove_apps_from_mode_command(test_params)
     # print(result5)

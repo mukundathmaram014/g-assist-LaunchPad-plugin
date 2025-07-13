@@ -4,51 +4,123 @@
   "persistent": true,
   "functions": [
     {
-      "name": "plugin_py_func1",
-      "description": "Plugin's first function",
+      "name": "launch_mode_command",
+      "description": "Launches all applications for a given mode.",
       "tags": [
-        "tag1",
-        "tag2"
+        "launch",
+        "mode",
+        "apps"
       ],
       "properties": {
-        "paramA": {
+        "mode": {
           "type": "string",
-          "description": "the first parameter"
-        },
-        "paramB": {
-          "type": "integer",
-          "description": "the second parameter"
-        },
-        "paramC": {
-          "type": "string",
-          "description": "the third parameter"
+          "description": "The name of the mode to launch."
         }
       }
     },
     {
-      "name": "plugin_py_func2",
-      "description": "Plugin's second function",
+      "name": "close_mode_command",
+      "description": "Closes all applications associated with a specified mode. ",
       "tags": [
-        "tag2",
-        "tag3"
+        "close",
+        "mode",
+        "apps"
       ],
       "properties": {
-        "paramA": {
+        "mode": {
           "type": "string",
-          "description": "the first parameter"
-        },
-        "paramB": {
-          "type": "integer",
-          "description": "the second parameter"
+          "description": "The name of the mode to close."
         }
       }
     },
     {
-      "name": "plugin_py_func3",
-      "description": "Plugin's third function",
+      "name": "get_modes_command",
+      "description": "Returns a list of all currently available modes.",
       "tags": [
-        "tag4"
+        "list",
+        "modes"
       ]
+    },
+    {
+      "name": "add_mode_command",
+      "description": "Adds a new mode with a list of application names ",
+      "tags": [
+        "add",
+        "mode",
+        "config"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "The name of the mode to add."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of application names"
+        }
+      }
+    },
+    {
+      "name": "delete_mode_command",
+      "description": "Deletes an entire mode by name. ",
+      "tags": [
+        "delete",
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "The name of the mode to delete."
+        }
+      }
+    },
+    {
+      "name": "add_apps_to_mode_command",
+      "description": "Adds a new list of applications to an existing mode. ",
+      "tags": [
+        "add",
+        "append",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "The name of the existing mode."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of application names to add. "
+        }
+      }
+    },
+    {
+      "name": "remove_apps_from_mode_command",
+      "description": "Removes a list of applications from an existing mode. ",
+      "tags": [
+        "remove",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "The name of the mode."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of application names to remove. "
+        }
+      }
     }
   ]
 }
