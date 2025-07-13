@@ -55,6 +55,22 @@ def launch_apps(app_paths: list[str]) -> list[str]:
             failed.append(path)
     return failed
 
+#closes apps
+def close_apps(app_paths: list[str]) -> list[str]:
+    failed = []
+    for path in app_paths:
+        closed = False
+        for proc in psutil.process_iter(['exe']):
+            try:
+                if proc.info['exe'] and (os.path.normcase(proc.info['exe']) == os.path.normcase(path)):
+                    proc.terminate()
+                    closed = True
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+        if not closed:
+            failed.append(path)
+    return failed
+
 #gets file path of running file by name
 def get_app_path_by_name(app_name: str) -> str | None:
     for proc in psutil.process_iter(['name', 'exe']):
@@ -101,6 +117,7 @@ def main():
         'delete_mode' : delete_mode_command,
         'add_apps_to_mode' : add_apps_to_mode_command,
         'delete_apps_from_mode' : delete_apps_from_mode_command,
+        'close_mode' : close_mode_command,
     }
     cmd = ''
 
@@ -511,6 +528,25 @@ def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
         logging.error(f"Failed to delete apps {apps} from mode '{mode}': {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
     
+def close_mode_command(params: dict = None, *_args) -> dict:
+
+    logging.info(f'Executing close_mode_command with params: {params}')
+
+    mode = params.get("mode") if params else None
+
+    if not mode:
+        return generate_failure_response("Missing 'mode' parameter")
+
+    modes = read_modes_config()
+    if mode not in modes:
+        return generate_failure_response(f"Mode '{mode}' not found.")
+    
+    failed = close_apps(modes[mode])
+
+    if failed:
+        return generate_failure_response(f"Some apps failed to close: {failed}")
+    return generate_success_response(f"Mode '{mode}' closed.")
+    
 #test
 
 if __name__ == '__main__':
@@ -521,6 +557,12 @@ if __name__ == '__main__':
     # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
     # result = launch_mode_command(test_params)
     # print(result)
+
+    #testing closing a mode
+    test_params = {"mode": "gaming"}  # "development" or "work" or "test"
+    resultc = close_mode_command(test_params)
+    print(resultc)
+
 
     # #testing get_modes
 
@@ -538,11 +580,11 @@ if __name__ == '__main__':
     # print(result3)
 
     #testing add app to mode
-    # test_params = {"mode" : "gaming", "apps": ["chrome", "Marvelrivals_launcher"]}
+    # test_params = {"mode" : "gaming", "apps": ["steam", "Marvelrivals_launcher"]}
     # result4 = add_apps_to_mode_command(test_params)
     # print(result4)
 
     #testing delete app from mode
-    test_params = {"mode" : "gaming", "apps": ["steam", "Marvelrivals_launcher"]}
-    result5 = delete_apps_from_mode_command(test_params)
-    print(result5)
+    # test_params = {"mode" : "gaming", "apps": ["chrome"]}
+    # result5 = delete_apps_from_mode_command(test_params)
+    # print(result5)
