@@ -1,2 +1,12 @@
 {
+    "development": [
+        "C:\\Users\\Mukun\\AppData\\Local\\Postman\\Postman.exe"
+    ],
+    "work": [
+        "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    ],
+    "test": [
+        "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2504.62.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe",
+        "C:\\Users\\Mukun\\AppData\\Local\\Postman\\app-11.53.4\\Postman.exe"
+    ]
 }
