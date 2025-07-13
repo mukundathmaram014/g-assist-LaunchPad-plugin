@@ -98,6 +98,7 @@ def main():
         'launch_mode': launch_mode_command,
         'get_modes': get_modes_command,
         'list_running_apps': add_mode_from_selection_command,
+        'delete_mode' : delete_mode_command,
     }
     cmd = ''
 
@@ -342,7 +343,7 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
     Returns:
         Success response if mode is added, or failure response if mode exists, app is not running, or file write fails.
     '''
-    
+
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'.")
 
@@ -376,14 +377,49 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
         logging.error(f"Failed to add mode from selection: {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
 
+
+def delete_mode_command(params: dict = None, *_args) -> dict:
+    '''
+    Deletes a mode from modes.json.
+
+    Args:
+        params: Dictionary with 'mode' (str) to delete.
+        *_args: Additional unused arguments.
+
+    Returns:
+        Success response if mode is deleted, or failure response if mode does not exist or file write fails.
+    
+    '''
+    if not params or "mode" not in params:
+        return generate_failure_response("Missing 'mode'")
+    
+    mode = params["mode"]
+
+    try:
+        with open(CONFIG_FILE, "r+") as f:
+            # gets json object
+            modes = json.load(f)
+            if mode not in modes:
+                return generate_failure_response(f"Mode '{mode}' does not exist.")
+            del modes[mode]
+            # dumps new json object in modes.json
+            f.seek(0)
+            json.dump(modes, f, indent=4)
+            f.truncate()
+        return generate_success_response(f"Mode '{mode}' successfully deleted")
+    except Exception as e:
+        logging.error(f"Failed to delete mode: {str(e)}")
+        return generate_failure_response("Failed to write to modes config.")
+
+
 #test
 
 if __name__ == '__main__':
     # # main()
-    print("Manual test starting...")
-    test_params = {"mode": "test"}  # "development" or "work" or "test"
-    result = launch_mode_command(test_params)
-    print(result)
+    # print("Manual test starting...")
+    # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
+    # result = launch_mode_command(test_params)
+    # print(result)
 
     # #testing get_modes
 
@@ -391,6 +427,11 @@ if __name__ == '__main__':
     # print(modes)
 
     #testing add mode from selection command
-    # test_params = {"mode" : "test", "apps": ["Notepad", "Postman"]}
+    # test_params = {"mode" : "gaming", "apps": ["Notepad", "Steam"]}
     # result2 = add_mode_from_selection_command(test_params)
     # print(result2)
+
+    #testing delete mode
+    test_params = {"mode" : "gaming"}
+    result3 = delete_mode_command(test_params)
+    print(result3)
