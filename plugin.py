@@ -332,6 +332,17 @@ def get_modes_command(params:dict=None, context:dict=None, system_info:dict=None
     return generate_success_response(f"Available modes: {list(modes.keys())}")
 
 def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
+    '''
+    Adds a new mode to modes.json using a selection of running apps.
+
+    Args:
+        params: Dictionary with 'mode' (str) and 'apps' (list of app names as strings).
+        *_args: Additional unused arguments.
+
+    Returns:
+        Success response if mode is added, or failure response if mode exists, app is not running, or file write fails.
+    '''
+    
     if not params or "mode" not in params or "apps" not in params:
         return generate_failure_response("Missing 'mode' or 'apps'.")
 
@@ -351,10 +362,12 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
 
     try:
         with open(CONFIG_FILE, "r+") as f:
+            # gets json object
             modes = json.load(f)
             if mode in modes:
                 return generate_failure_response(f"Mode '{mode}' already exists.")
             modes[mode] = app_paths
+            # dumps new json object in modes.json
             f.seek(0)
             json.dump(modes, f, indent=4)
             f.truncate()
@@ -367,17 +380,17 @@ def add_mode_from_selection_command(params: dict = None, *_args) -> dict:
 
 if __name__ == '__main__':
     # # main()
-    # print("Manual test starting...")
-    # test_params = {"mode": "test"}  # "development" or "work" or "test"
-    # result = launch_mode_command(test_params)
-    # print(result)
+    print("Manual test starting...")
+    test_params = {"mode": "test"}  # "development" or "work" or "test"
+    result = launch_mode_command(test_params)
+    print(result)
 
     # #testing get_modes
 
     # modes = get_modes_command()
     # print(modes)
 
-    #testing list running apps
-    test_params = {"mode" : "test", "apps": ["Notepad", "Postman"]}
-    result2 = add_mode_from_selection_command(test_params)
-    print(result2)
+    #testing add mode from selection command
+    # test_params = {"mode" : "test", "apps": ["Notepad", "Postman"]}
+    # result2 = add_mode_from_selection_command(test_params)
+    # print(result2)
