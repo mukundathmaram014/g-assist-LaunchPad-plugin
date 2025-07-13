@@ -34,6 +34,13 @@ if exist %VENV% (
 		echo manifest.json copied successfully.
 	) 
 
+    :: copies over modes.json
+    if exist modes.json (
+		copy /y modes.json "%PLUGIN_DIR%\modes.json"
+		echo modes.json copied successfully.
+	) 
+
+
 	if exist config.json (
 		copy /y config.json "%PLUGIN_DIR%\config.json"
 		echo config.json copied successfully.
