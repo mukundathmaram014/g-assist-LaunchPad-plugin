@@ -99,6 +99,8 @@ def main():
         'get_modes': get_modes_command,
         'list_running_apps': add_mode_from_selection_command,
         'delete_mode' : delete_mode_command,
+        'add_apps_to_mode' : add_apps_to_mode_command,
+        'delete_apps_from_mode' : delete_apps_from_mode_command,
     }
     cmd = ''
 
@@ -411,11 +413,110 @@ def delete_mode_command(params: dict = None, *_args) -> dict:
         logging.error(f"Failed to delete mode: {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
 
+def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
 
+    '''
+    Adds one or more apps to an existing mode in modes.json, using currently running apps.
+
+    Args:
+        params: Dictionary with 'mode' (str) and 'apps' (list of app names as strings).
+        *_args: Additional unused arguments.
+
+    Returns:
+        Success response if apps are added, or failure response if mode does not exist, app is not running, or file write fails.
+        Deduplicates apps so only new apps are added to the mode.
+    '''
+
+    if not params or "mode" not in params or "apps" not in params:
+        return generate_failure_response("Missing 'mode' or 'apps'")
+    
+    mode = params["mode"]
+    apps = params["apps"]
+
+    if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
+        return generate_failure_response("'apps' must be a list of strings.")
+    app_paths = []
+
+    for app in apps:
+        app_path = get_app_path_by_name(app)
+        if (app_path):
+            app_paths.append(get_app_path_by_name(app))
+        else:
+            return generate_failure_response(f"app {app} is currently not running or not installed in your system")
+
+    try:
+        with open(CONFIG_FILE, "r+") as f:
+            # gets json object
+            modes = json.load(f)
+            if mode not in modes:
+                return generate_failure_response(f"Mode '{mode}' does not exist.")
+            for app_path in app_paths:
+                if app_path not in modes[mode]:
+                    modes[mode].append(app_path)
+            
+            # dumps new json object in modes.json
+            f.seek(0)
+            json.dump(modes, f, indent=4)
+            f.truncate()
+        return generate_success_response(f"apps {apps} successfully added to Mode '{mode}'")
+    except Exception as e:
+        logging.error(f"Failed to add apps {apps} to mode '{mode}': {str(e)}")
+        return generate_failure_response("Failed to write to modes config.")
+
+
+def delete_apps_from_mode_command(params: dict = None, *_args) -> dict:
+    '''
+    Removes one or more apps from an existing mode in modes.json by matching app names (case-insensitive, ignoring .exe) against the stored app paths.
+
+    Args:
+        params: Dictionary with 'mode' (str) and 'apps' (list of app names as strings) to remove.
+        *_args: Additional unused arguments.
+
+    Returns:
+        Success response if apps are removed, or failure response if mode does not exist or file write fails.
+    '''
+
+    if not params or "mode" not in params or "apps" not in params:
+        return generate_failure_response("Missing 'mode' or 'apps'")
+    
+    mode = params["mode"]
+    apps = params["apps"]
+
+    if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
+        return generate_failure_response("'apps' must be a list of strings.")
+
+    try:
+        with open(CONFIG_FILE, "r+") as f:
+            # gets json object
+            modes = json.load(f)
+            if mode not in modes:
+                return generate_failure_response(f"Mode '{mode}' does not exist.")
+            new_apps = []
+            for app_path in modes[mode]:
+                keep = True
+                for app in apps:
+                    if (app.lower() in os.path.basename(app_path).lower().replace('.exe', '')):
+                        keep = False
+                        break
+                if keep:
+                    new_apps.append(app_path)
+            modes[mode] = new_apps
+            
+            # dumps new json object in modes.json
+            f.seek(0)
+            json.dump(modes, f, indent=4)
+            f.truncate()
+        return generate_success_response(f"apps {apps} successfully deleted from Mode '{mode}'")
+    except Exception as e:
+        logging.error(f"Failed to delete apps {apps} from mode '{mode}': {str(e)}")
+        return generate_failure_response("Failed to write to modes config.")
+    
 #test
 
 if __name__ == '__main__':
     # # main()
+
+    # testing launching a mode
     # print("Manual test starting...")
     # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
     # result = launch_mode_command(test_params)
@@ -432,6 +533,16 @@ if __name__ == '__main__':
     # print(result2)
 
     #testing delete mode
-    test_params = {"mode" : "gaming"}
-    result3 = delete_mode_command(test_params)
-    print(result3)
+    # test_params = {"mode" : "gaming"}
+    # result3 = delete_mode_command(test_params)
+    # print(result3)
+
+    #testing add app to mode
+    # test_params = {"mode" : "gaming", "apps": ["chrome", "Marvelrivals_launcher"]}
+    # result4 = add_apps_to_mode_command(test_params)
+    # print(result4)
+
+    #testing delete app from mode
+    test_params = {"mode" : "gaming", "apps": ["steam", "Marvelrivals_launcher"]}
+    result5 = delete_apps_from_mode_command(test_params)
+    print(result5)
