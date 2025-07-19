@@ -25,20 +25,27 @@ import os
 from ctypes import byref, windll, wintypes
 from typing import Dict, Optional
 import psutil
+import ast
 
 
 # Data Types
 Response = Dict[bool,Optional[str]]
 
 LOG_FILE = os.path.join(os.environ.get("USERPROFILE", "."), 'LaunchPad_plugin.log')
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), "modes.json")
+"""Path to modes file"""
+MODES_FILE = os.path.join(
+    os.environ.get("PROGRAMDATA", "."),
+    r'NVIDIA Corporation\nvtopps\rise\plugins\launchpad',
+    'modes.json'
+)
+
 
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 #reads modes from modes.json
 def read_modes_config():
     try:
-        with open(CONFIG_FILE, 'r') as f:
+        with open(MODES_FILE, 'r') as f:
             return json.load(f)
     except Exception as e:
         logging.error(f"Failed to read modes config: {str(e)}")
@@ -92,7 +99,7 @@ def main():
     Sits in a loop listening to a pipe, waiting for commands to be issued. After
     receiving the command, it is processed and the result returned. The loop
     continues until the "shutdown" command is issued.
-
+    
     Returns:
         0 if no errors occurred during execution; non-zero if an error occurred
     '''
@@ -100,7 +107,7 @@ def main():
     CONTEXT_PROPERTY = 'messages'
     SYSTEM_INFO_PROPERTY = 'system_info'  # Added for game information
     FUNCTION_PROPERTY = 'func'
-    PARAMS_PROPERTY = 'properties'
+    PARAMS_PROPERTY = 'params'
     INITIALIZE_COMMAND = 'initialize'
     SHUTDOWN_COMMAND = 'shutdown'
 
@@ -109,15 +116,15 @@ def main():
 
     # Generate command handler mapping
     commands = {
-        'initialize': execute_initialize_command,
-        'shutdown': execute_shutdown_command,
-        'launch_mode': launch_mode_command,
-        'get_modes': get_modes_command,
-        'list_running_apps': add_mode_command,
-        'delete_mode' : delete_mode_command,
-        'add_apps_to_mode' : add_apps_to_mode_command,
-        'delete_apps_from_mode' : remove_apps_from_mode_command,
-        'close_mode' : close_mode_command,
+        'execute_initialize_command': execute_initialize_command,
+        'execute_shutdown_command': execute_shutdown_command,
+        'launch_mode_command': launch_mode_command,
+        'get_modes_command': get_modes_command,
+        'add_mode_command': add_mode_command,
+        'delete_mode_command' : delete_mode_command,
+        'add_apps_to_mode_command' : add_apps_to_mode_command,
+        'remove_apps_from_mode_command' : remove_apps_from_mode_command,
+        'close_mode_command' : close_mode_command,
     }
     cmd = ''
 
@@ -141,11 +148,12 @@ def main():
                         if(cmd == INITIALIZE_COMMAND or cmd == SHUTDOWN_COMMAND):
                             response = commands[cmd]()
                         else:
+                            params = tool_call.get(PARAMS_PROPERTY, {})
                             response = execute_initialize_command()
-                            response = commands[cmd](
-                                input[PARAMS_PROPERTY] if PARAMS_PROPERTY in input else None,
-                                input[CONTEXT_PROPERTY] if CONTEXT_PROPERTY in input else None,
-                                input[SYSTEM_INFO_PROPERTY] if SYSTEM_INFO_PROPERTY in input else None  # Pass system_info directly
+                            response = commands[cmd](params
+                                # input[PARAMS_PROPERTY] if PARAMS_PROPERTY in input else None,
+                                # input[CONTEXT_PROPERTY] if CONTEXT_PROPERTY in input else None,
+                                # input[SYSTEM_INFO_PROPERTY] if SYSTEM_INFO_PROPERTY in input else None  # Pass system_info directly
                             )
                     else:
                         logging.warning(f'Unknown command: {cmd}')
@@ -233,6 +241,16 @@ def write_response(response:Response) -> None:
             pipe,
             message_bytes,
             message_len,
+            bytes_written,
+            None
+        )
+
+         # Write <<END>> to signal G-Assist the response is complete
+        end_marker = b"<<END>>\n"
+        windll.kernel32.WriteFile(
+            pipe,
+            end_marker,
+            len(end_marker),
             bytes_written,
             None
         )
@@ -400,6 +418,12 @@ def add_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    if isinstance(apps, str):
+        try:
+            apps = ast.literal_eval(apps)
+        except Exception:
+            return generate_failure_response("'apps' string could not be parsed as a list.")
+
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
@@ -412,7 +436,7 @@ def add_mode_command(params: dict = None, *_args) -> dict:
             return generate_failure_response(f"app {app} is currently not running or not installed in your system")
 
     try:
-        with open(CONFIG_FILE, "r+") as f:
+        with open(MODES_FILE, "r+") as f:
             # gets json object
             modes = json.load(f)
             if mode in modes:
@@ -449,7 +473,7 @@ def delete_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
 
     try:
-        with open(CONFIG_FILE, "r+") as f:
+        with open(MODES_FILE, "r+") as f:
             # gets json object
             modes = json.load(f)
             if mode not in modes:
@@ -486,6 +510,12 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    if isinstance(apps, str):
+        try:
+            apps = ast.literal_eval(apps)
+        except Exception:
+            return generate_failure_response("'apps' string could not be parsed as a list.")
+        
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
@@ -498,7 +528,7 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
             return generate_failure_response(f"app {app} is currently not running or not installed in your system")
 
     try:
-        with open(CONFIG_FILE, "r+") as f:
+        with open(MODES_FILE, "r+") as f:
             # gets json object
             modes = json.load(f)
             if mode not in modes:
@@ -537,11 +567,17 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    if isinstance(apps, str):
+        try:
+            apps = ast.literal_eval(apps)
+        except Exception:
+            return generate_failure_response("'apps' string could not be parsed as a list.")
+        
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
 
     try:
-        with open(CONFIG_FILE, "r+") as f:
+        with open(MODES_FILE, "r+") as f:
             # gets json object
             modes = json.load(f)
             if mode not in modes:
@@ -589,7 +625,7 @@ if __name__ == '__main__':
     # print(modes)
 
     #testing add mode command
-    # test_params = {"mode" : "gaming", "apps": ["Notepad", "Steam"]}
+    # test_params = {"mode" : "gaming", "apps": "['Notepad', 'Steam']"}
     # result2 = add_mode_command(test_params)
     # print(result2)
 

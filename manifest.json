@@ -14,7 +14,7 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the mode to launch."
+          "description": "[required] The name of the mode to launch."
         }
       }
     },
@@ -29,7 +29,7 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the mode to close."
+          "description": "[required] The name of the mode to close."
         }
       }
     },
@@ -52,14 +52,14 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the mode to add."
+          "description": "[required] The name of the mode to add."
         },
         "apps": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "List of application names"
+          "description": "[required] List of application names"
         }
       }
     },
@@ -73,7 +73,7 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the mode to delete."
+          "description": "[required] The name of the mode to delete."
         }
       }
     },
@@ -89,14 +89,14 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the existing mode."
+          "description": "[required] The name of the existing mode."
         },
         "apps": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "List of application names to add. "
+          "description": "[required] List of application names to add. "
         }
       }
     },
@@ -111,14 +111,14 @@
       "properties": {
         "mode": {
           "type": "string",
-          "description": "The name of the mode."
+          "description": "[required] The name of the mode."
         },
         "apps": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "List of application names to remove. "
+          "description": "[required] List of application names to remove. "
         }
       }
     }
