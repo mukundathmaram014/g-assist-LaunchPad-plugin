@@ -1,0 +1,126 @@
+{
+  "manifestVersion": 1,
+  "executable": "./g-assist-plugin-launchpad.exe",
+  "persistent": true,
+  "functions": [
+    {
+      "name": "launch_mode_command",
+      "description": "Launches all applications for a given mode.",
+      "tags": [
+        "launch",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode to launch."
+        }
+      }
+    },
+    {
+      "name": "close_mode_command",
+      "description": "Closes all applications associated with a specified mode. ",
+      "tags": [
+        "close",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode to close."
+        }
+      }
+    },
+    {
+      "name": "get_modes_command",
+      "description": "Returns a list of all currently available modes.",
+      "tags": [
+        "list",
+        "modes"
+      ]
+    },
+    {
+      "name": "add_mode_command",
+      "description": "Adds a new mode with a list of application names ",
+      "tags": [
+        "add",
+        "mode",
+        "config"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode to add."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[required] List of application names"
+        }
+      }
+    },
+    {
+      "name": "delete_mode_command",
+      "description": "Deletes an entire mode by name. ",
+      "tags": [
+        "delete",
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode to delete."
+        }
+      }
+    },
+    {
+      "name": "add_apps_to_mode_command",
+      "description": "Adds a new list of applications to an existing mode. ",
+      "tags": [
+        "add",
+        "append",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the existing mode."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[required] List of application names to add. "
+        }
+      }
+    },
+    {
+      "name": "remove_apps_from_mode_command",
+      "description": "Removes a list of applications from an existing mode. ",
+      "tags": [
+        "remove",
+        "mode",
+        "apps"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode."
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "[required] List of application names to remove. "
+        }
+      }
+    }
+  ]
+}
