@@ -1,8 +1,9 @@
 # LaunchPad G-Assist Plugin
 
-**LaunchPad** is a G-Assist plugin that lets you instantly switch between various different modes that you can configure with different apps by launching groups of apps with a single voice or text command.
 
-Say “start development mode” and it’ll open VSCode, Chrome, Postman — or say “start gaming mode” and it’ll launch your game, Twitch, and Spotify. All modes are customizable, dynamically editable, and stored locally.
+**LaunchPad** is a G-Assist plugin that enables you to instantly switch between custom modes, for which you can configure with groups of applications. LaunchPad allows you to open sets of apps with a single voice or text command, streamlining your workflow and productivity.
+
+For example, say “start development mode” to automatically launch VSCode, Chrome, and Postman, or “start gaming mode” to open your game, Twitch, and Spotify. All modes are fully customizable, can be edited dynamically, and are stored locally for quick access.
 
 ---
 
