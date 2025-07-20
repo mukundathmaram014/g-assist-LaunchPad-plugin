@@ -1,32 +1,36 @@
-# G-Assist Python Plugin Template
+# LaunchPad G-Assist Plugin
 
-Transform your ideas into powerful G-Assist plugins with our Python template! This template provides everything you need to create Windows-based plugins that seamlessly communicate with the G-Assist plugin manager. Whether you're building your first plugin or your fiftieth, this template will help you get started quickly.
+**LaunchPad** is a G-Assist plugin that lets you instantly switch between various different modes that you can configure with different apps by launching groups of apps with a single voice or text command.
+
+Say “start development mode” and it’ll open VSCode, Chrome, Postman — or say “start gaming mode” and it’ll launch your game, Twitch, and Spotify. All modes are customizable, dynamically editable, and stored locally.
+
+---
 
 ## What Can It Do?
-- Built-in pipe communication with G-Assist plugin manager
-- Ready-to-use command handling system
-- Comprehensive logging system
-- Support for initialization and shutdown procedures
-- Easily extensible function framework
+- Create new modes based on currently running apps
+- Launch your configured modes (like `development`, `gaming`, `focus`)
+- Add/remove apps from existing modes
+- Delete modes
+- Mode configuration saved in `modes.json`
+- Voice/text input supported via G-Assist
 
-## Before You Start
-Make sure you have:
+## Requirements
+
 - Windows PC
-- Python 3.12 or higher
-- G-Assist installed on your system
-- pywin32 >= 223
-- Basic knowledge of Python
+- Python 3.12+ (for development/building)
+- G-Assist installed
+- Plugin dependencies listed in `requirements.txt`
+- Applications to launch must have known absolute paths
 
-💡 **Tip**: Use a virtual environment to keep your plugin dependencies isolated from other Python projects!
 
 ## Installation Guide
 
-### Step 1: Get the Files
+### Step 1: Download the code
 ```bash
 git clone --recurse-submodules <repository-url>
-cd python-template
+cd LaunchPad
 ```
-This downloads the template and all necessary files to your computer.
+This downloads all the code to your computer
 
 ### Step 2: Set Up Python Environment
 ```bash
@@ -36,52 +40,114 @@ python -m pip install -r requirements.txt
 ```
 This creates a clean environment and installs all required packages.
 
-## How to Customize
+### Step 3: Setup and Build
+First run the setup script:
+```bash
+.\setup.bat
+```
+This will install all required python packages. Then run the build script:
 
-### Basic Command Structure
-The template comes with three example functions ready for customization:
-```python
-def execute_new_function(params: dict = None, context: dict = None, system_info: dict = None) -> dict:
-    logging.info(f'Executing new function with params: {params}')
-    # Your code here!
-    return generate_success_response('Success!')
+```bash
+.\build.bat
 ```
 
-💡 **Tip**: Each function gets params, context, and system_info dictionaries - use them to make your plugin smarter!
+### Step 4: Install to G-Assist
 
-### Adding New Commands
-1. Create your function in `commands.py`:
-```python
-def execute_my_command(params: dict = None, context: dict = None, system_info: dict = None) -> dict:
-    # Your amazing code here
-    return generate_success_response('Done!')
+First open the dist folder created by running the build script.
+Then copy the folder named "launchpad" to:
+```bash
+%PROGRAMDATA%\NVIDIA Corporation\nvtopps\rise\plugins
+```
+Restart G-Assist to detect the Plug-in.
+
+## How to Use
+
+Try these commands to use the various capabilities of launchpad
+
+Create a New Mode from Running Apps
+Say or type:
+
+- hey launchpad,  create mode called gaming for apps steam, chrome, and discord
+
+G-Assist will create a new "gaming" mode using the currently running Steam, Chrome, and Discord. Make sure these apps are already running when you do this command otherwise it will not work
+
+Launch a Mode
+Say or type:
+
+- hey launchpad, launch gaming mode
+
+G-Assist will launch all apps configured for the "gaming" mode.
+
+Close a Mode
+Say or type:
+
+- hey launchpad, close gaming mode
+
+G-Assist will close all apps in the "gaming" mode.
+
+List Available Modes
+Say or type:
+
+- hey launchpad, list modes
+
+G-Assist will show all configured modes.
+
+
+Remove Apps from a Mode
+Say or type:
+
+- hey launchpad, remove apps chrome, discord from gaming mode
+
+G-Assist will remove Notepad and Discord from the "gaming" mode.
+
+
+Add Apps to an Existing Mode
+Say or type:
+
+- hey launchpad, add apps notepad, chrome to gaming mode
+
+G-Assist will add Notepad and Chrome to the "work" mode.
+
+
+
+Tip: You can use voice or text commands. Mode and app names are case-insensitive and should match the names of running applications. If you are unsure about the app name you can open task manager to find it. Note that you can also manually add and modify application paths by opening modes.json.
+
+
+## Troubleshooting
+The plugic automatically logs all activity to 
+```bash
+%USERPROFILE%\LaunchPad_plugin.log
 ```
 
-2. Register it in the commands dictionary:
-```python
-commands = {
-    'initialize': execute_initialize_command,
-    'my_command': execute_my_command,
-}
-```
-
-💡 **Tip**: Use descriptive command names that reflect what your function does!
-
-## Logging
-Your plugin automatically logs to `python_plugin.log` in your user's profile directory. It tracks:
+It tracks:
 - Plugin startup and shutdown
 - Command reception and processing
 - Error conditions
 - Function execution details
 
-## Troubleshooting Tips
-- **Plugin not starting?** Check if Python 3.12+ is installed and in PATH
-- **Communication errors?** Verify pywin32 is installed correctly
-- **Commands not working?** Double-check your command registration
-- **Missing logs?** Ensure write permissions in user profile directory
 
 ## Want to Contribute?
-We'd love your help making this template even better! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
+
+All contributions are welcome. 
+
+How to contribute :
+
+- Fork this repository.
+- Create a branch 
+```bash
+(git checkout -b feature/my-feature).
+```
+- Commit your changes 
+```bash
+(git commit -m ‘Add feature’).
+```
+
+- Push your branch 
+```bash
+(git push origin feature/my-feature).
+```
+
+- Open a Pull Request.
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
