@@ -410,13 +410,23 @@ def add_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
-    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
+    # If 'apps' is a string, handle both list-like and single app cases
     if isinstance(apps, str):
         try:
-            apps = ast.literal_eval(apps)
+            # try to parse as a list string
+            parsed = ast.literal_eval(apps)
+            if isinstance(parsed, list):
+                apps = parsed
+            # case where single app passed as string in string (e.g, "'Steam'")
+            elif isinstance(parsed, str):
+                apps = [parsed]
+            else:
+                return generate_failure_response("'apps' string could not be parsed as a list or string.")
         except Exception:
-            return generate_failure_response("'apps' string could not be parsed as a list.")
+            # handles if app is just passed as a string (e.g., "Steam")
+            apps = [apps]
 
+    # Confirms apps is now a list of strings
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
@@ -504,13 +514,23 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
-    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
+    # If 'apps' is a string, handle both list-like and single app cases
     if isinstance(apps, str):
         try:
-            apps = ast.literal_eval(apps)
+            # try to parse as a list string
+            parsed = ast.literal_eval(apps)
+            if isinstance(parsed, list):
+                apps = parsed
+            # case where single app passed as string in string (e.g, "'Steam'")
+            elif isinstance(parsed, str):
+                apps = [parsed]
+            else:
+                return generate_failure_response("'apps' string could not be parsed as a list or string.")
         except Exception:
-            return generate_failure_response("'apps' string could not be parsed as a list.")
+            # handles if app is just passed as a string (e.g., "Steam")
+            apps = [apps]
         
+    # Confirms apps is now a list of strings
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
@@ -563,13 +583,23 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
-    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
+    # If 'apps' is a string, handle both list-like and single app cases
     if isinstance(apps, str):
         try:
-            apps = ast.literal_eval(apps)
+            # try to parse as a list string
+            parsed = ast.literal_eval(apps)
+            if isinstance(parsed, list):
+                apps = parsed
+            # case where single app passed as string in string (e.g, "'Steam'")
+            elif isinstance(parsed, str):
+                apps = [parsed]
+            else:
+                return generate_failure_response("'apps' string could not be parsed as a list or string.")
         except Exception:
-            return generate_failure_response("'apps' string could not be parsed as a list.")
+            # handles if app is just passed as a string (e.g., "Steam")
+            apps = [apps]
         
+    # Confirms apps is now a list of strings
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
 
