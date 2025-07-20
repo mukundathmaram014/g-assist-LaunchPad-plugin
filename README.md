@@ -65,46 +65,58 @@ Restart G-Assist to detect the Plug-in.
 Try these commands to use the various capabilities of launchpad
 
 Create a New Mode from Running Apps
+
+
 Say or type:
 
-- hey launchpad,  create mode called gaming for apps steam, chrome, and discord
+```text
+hey launchpad, create mode called gaming for apps steam, chrome, and discord
+```
 
 G-Assist will create a new "gaming" mode using the currently running Steam, Chrome, and Discord. Make sure these apps are already running when you do this command otherwise it will not work
 
 Launch a Mode
 Say or type:
 
-- hey launchpad, launch gaming mode
+```text
+hey launchpad, launch gaming mode
+```
 
 G-Assist will launch all apps configured for the "gaming" mode.
 
 Close a Mode
 Say or type:
 
-- hey launchpad, close gaming mode
+```text
+hey launchpad, close gaming mode
+```
 
 G-Assist will close all apps in the "gaming" mode.
 
 List Available Modes
 Say or type:
 
-- hey launchpad, list modes
+```text
+hey launchpad, list modes
+```
 
 G-Assist will show all configured modes.
-
 
 Remove Apps from a Mode
 Say or type:
 
-- hey launchpad, remove apps chrome, discord from gaming mode
+```text
+hey launchpad, remove apps chrome, discord from gaming mode
+```
 
 G-Assist will remove Notepad and Discord from the "gaming" mode.
-
 
 Add Apps to an Existing Mode
 Say or type:
 
-- hey launchpad, add apps notepad, chrome to gaming mode
+```text
+hey launchpad, add apps notepad, chrome to gaming mode
+```
 
 G-Assist will add Notepad and Chrome to the "work" mode.
 
@@ -168,7 +180,7 @@ Gracefully shuts down the plugin.
 - No parameters required
 - Returns success response with shutdown status
 
-#### `launch_mode_command`
+### `launch_mode_command`
 Launches all applications configured for a specified mode by starting each app using its saved executable path.
 
 **Parameters:**
@@ -180,6 +192,8 @@ Returns a success response if all apps launch successfully, or a failure respons
 
 ### `get_modes_command`
 Retrieves a list of all modes currently configured in the plugin. Returns the names of each mode as stored in modes.json.
+- No parameters required
+- Returns success response with listed modes
 
 ### `add_mode_command`
 Creates a new mode by capturing the executable paths of currently running applications.
