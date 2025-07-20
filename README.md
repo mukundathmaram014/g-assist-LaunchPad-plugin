@@ -339,26 +339,28 @@ To add a new command:
 
 ## Want to Contribute?
 
-All contributions are welcome. 
 
-How to contribute :
+All contributions are welcome.
+
+How to contribute:
 
 - Fork this repository.
-- Create a branch 
-```bash
-(git checkout -b feature/my-feature).
-```
-- Commit your changes 
-```bash
-(git commit -m ‘Add feature’).
-```
+- Create a branch:
+  ```bash
+  git checkout -b feature/my-feature
+  ```
+- Commit your changes (please sign off your commits to certify your contribution):
+  ```bash
+  git commit -s -m "Add feature"
+  ```
+  This adds a "Signed-off-by" line to your commit message, as required by the Developer Certificate of Origin (DCO).
+- Push your branch:
+  ```bash
+  git push origin feature/my-feature
+  ```
+- Open a Pull Request. Please keep your PR as a draft until you are ready for it to be reviewed.
 
-- Push your branch 
-```bash
-(git push origin feature/my-feature).
-```
-
-- Open a Pull Request.
+For more details, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
