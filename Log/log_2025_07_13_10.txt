@@ -1,8 +1,0 @@
-2025-07-13 10:56:04.801 | INFO     | x20launcher.launcher_application:__init__:1774 - ********************************* Start *********************************
-2025-07-13 10:56:04.801 | INFO     | x20launcher.launcher_application:__init__:1775 - X20Launcher init start
-2025-07-13 10:56:04.802 | INFO     | x20launcher.launcher_application:__init__:1777 - init log
-2025-07-13 10:56:04.805 | INFO     | x20launcher.launcher_application:exec:1781 - Launcher version is 1.92.50
-2025-07-13 10:56:04.805 | INFO     | x20launcher.launcher_application:exec:1783 - crashhunter transid is 14EC48B53F82D21BA6B0E55EBFC4C91E_1752418563657_100025401
-2025-07-13 10:56:04.815 | ERROR    | x20launcher.bridge.sunshine_boost_helper:get_launcher_state_record:276 - Read launch state failed, error: [Errno 2] No such file or directory: 'C:\\Users\\Mukun\\Projects\\LaunchPad\\launch_record'
-2025-07-13 10:56:04.815 | INFO     | x20launcher.launcher_application:__init__:1681 - Application init start
-2025-07-13 10:56:05.402 | INFO     | x20launcher.launcher_application:__init__:1687 - Application set singleton flag. another application already running, do not run again
