@@ -170,12 +170,12 @@ Example structure:
 
 ### Available Commands
 
-#### `initialize`
+### `initialize`
 Initializes the plugin and sets up the environment.
 - No parameters required
 - Returns success response with initialization status
 
-#### `shutdown`
+### `shutdown`
 Gracefully shuts down the plugin.
 - No parameters required
 - Returns success response with shutdown status
@@ -238,7 +238,7 @@ The command checks which of the specified apps are present in the selected mode 
 
 Returns a success response if the apps are removed from the mode, or a failure response if the mode does not exist. Apps that are not present in the mode are ignored and do not result in an error.
 
-#### `close_mode_command`
+### `close_mode_command`
 Closes all applications configured for a specified mode by terminating each app using its saved executable path.
 
 **Parameters:**
