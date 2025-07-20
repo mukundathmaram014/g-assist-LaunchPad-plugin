@@ -1,15 +1,15 @@
 # How to Contribute
 
-We'd love to receive your patches and contributions. Please keep your PRs as draft until such time that you would like us to review them.
+Thank you for contributing to the launchpad plugin. Please keep your PRs as draft until such time that you would like for them to be reviewed.
 
 ## Code Reviews
 
-All submissions, including submissions by project members, require review. We use GitHub pull requests for this purpose. Consult
+All submissions, including submissions by project members, require review. Github pull requests are used for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more information on using pull requests.
 
 #### Signing Your Work
 
-* We require that all contributors "sign-off" on their commits. This certifies that the contribution is your original work, or you have rights to submit it under the same license, or a compatible license.
+* It is required that all contributors "sign-off" on their commits. This certifies that the contribution is your original work, or you have rights to submit it under the same license, or a compatible license.
 
   * Any contribution which contains commits that are not Signed-Off will not be accepted.
 
