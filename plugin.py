@@ -13,11 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-''' RISE plugin template code.
-
-The following code can be used to create a RISE plugin written in Python. RISE
-plugins are Windows based executables. They are spawned by the RISE plugin
-manager. Communication between the plugin and the manager are done via pipes.
+''' G-assist launchpad plug in.
 '''
 import json
 import logging
@@ -150,11 +146,7 @@ def main():
                         else:
                             params = tool_call.get(PARAMS_PROPERTY, {})
                             response = execute_initialize_command()
-                            response = commands[cmd](params
-                                # input[PARAMS_PROPERTY] if PARAMS_PROPERTY in input else None,
-                                # input[CONTEXT_PROPERTY] if CONTEXT_PROPERTY in input else None,
-                                # input[SYSTEM_INFO_PROPERTY] if SYSTEM_INFO_PROPERTY in input else None  # Pass system_info directly
-                            )
+                            response = commands[cmd](params)
                     else:
                         logging.warning(f'Unknown command: {cmd}')
                         response = generate_failure_response(f'{ERROR_MESSAGE} Unknown command: {cmd}')
@@ -172,7 +164,7 @@ def main():
             logging.info('Shutdown command received, terminating plugin')
             break
     
-    logging.info('G-Assist Plugin stopped.')
+    logging.info('launchpad Plugin stopped.')
     return 0
 
 
@@ -293,7 +285,7 @@ def generate_success_response(message:str=None) -> Response:
 def execute_initialize_command() -> dict:
     ''' Command handler for `initialize` function
 
-    This handler is responseible for initializing the plugin.
+    This handler is responsible for initializing the plugin.
 
     Args:
         params: Function parameters
@@ -418,6 +410,7 @@ def add_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
     if isinstance(apps, str):
         try:
             apps = ast.literal_eval(apps)
@@ -428,6 +421,7 @@ def add_mode_command(params: dict = None, *_args) -> dict:
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
 
+    # For each app name, get its executable path if running; collect valid paths, or fail if any app is not found.
     for app in apps:
         app_path = get_app_path_by_name(app)
         if (app_path):
@@ -510,6 +504,7 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
     if isinstance(apps, str):
         try:
             apps = ast.literal_eval(apps)
@@ -520,6 +515,7 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
         return generate_failure_response("'apps' must be a list of strings.")
     app_paths = []
 
+    # For each app name, get its executable path if running; collect valid paths, or fail if any app is not found.
     for app in apps:
         app_path = get_app_path_by_name(app)
         if (app_path):
@@ -567,6 +563,7 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     mode = params["mode"]
     apps = params["apps"]
 
+    # If 'apps' is a string representation of a list (e.g., "['Steam', 'Notepad']"), convert it to an actual list.
     if isinstance(apps, str):
         try:
             apps = ast.literal_eval(apps)
@@ -584,6 +581,7 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
                 return generate_failure_response(f"Mode '{mode}' does not exist.")
             new_apps = []
             for app_path in modes[mode]:
+                # removes apps 
                 keep = True
                 for app in apps:
                     if (app.lower() in os.path.basename(app_path).lower().replace('.exe', '')):
@@ -601,45 +599,7 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     except Exception as e:
         logging.error(f"Failed to delete apps {apps} from mode '{mode}': {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
-    
-#test
 
 if __name__ == '__main__':
     main()
 
-    # testing launching a mode
-    # print("Manual test starting...")
-    # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
-    # result = launch_mode_command(test_params)
-    # print(result)
-
-    #testing closing a mode
-    # test_params = {"mode": "gaming"}  # "development" or "work" or "test"
-    # resultc = close_mode_command(test_params)
-    # print(resultc)
-
-
-    # #testing get_modes
-
-    # modes = get_modes_command()
-    # print(modes)
-
-    #testing add mode command
-    # test_params = {"mode" : "gaming", "apps": "['Notepad', 'Steam']"}
-    # result2 = add_mode_command(test_params)
-    # print(result2)
-
-    #testing delete mode
-    # test_params = {"mode" : "gaming"}
-    # result3 = delete_mode_command(test_params)
-    # print(result3)
-
-    #testing add app to mode
-    # test_params = {"mode" : "gaming", "apps": ["steam", "Marvelrivals_launcher"]}
-    # result4 = add_apps_to_mode_command(test_params)
-    # print(result4)
-
-    #testing remove app from mode
-    # test_params = {"mode" : "gaming", "apps": ["chrome"]}
-    # result5 = remove_apps_from_mode_command(test_params)
-    # print(result5)
