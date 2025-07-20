@@ -1,0 +1,154 @@
+2025-07-13 12:11:52.717 | INFO     | x20launcher.launcher_application:__init__:1774 - ********************************* Start *********************************
+2025-07-13 12:11:52.717 | INFO     | x20launcher.launcher_application:__init__:1775 - X20Launcher init start
+2025-07-13 12:11:52.718 | INFO     | x20launcher.launcher_application:__init__:1777 - init log
+2025-07-13 12:11:52.723 | INFO     | x20launcher.launcher_application:exec:1781 - Launcher version is 1.92.50
+2025-07-13 12:11:52.723 | INFO     | x20launcher.launcher_application:exec:1783 - crashhunter transid is 14EC48B53F82D21BA6B0E55EBFC4C91E_1752423111774_100007484
+2025-07-13 12:11:52.725 | INFO     | x20launcher.launcher_application:__init__:1681 - Application init start
+2025-07-13 12:11:53.244 | INFO     | x20launcher.launcher_application:launch_record:1759 - Launch record
+2025-07-13 12:11:53.247 | INFO     | x20launcher.launcher_application:__init__:102 - QMLContext init start
+2025-07-13 12:11:53.247 | INFO     | x20launcher.launcher_application:__init__:111 - Verify invite code success. don't need invite code
+2025-07-13 12:11:53.248 | INFO     | x20launcher.launcher_application:update_region:383 - Language: en_US, Encoding: cp1252
+2025-07-13 12:11:53.248 | INFO     | x20launcher.launcher_application:update_region:388 - Local Timezone Offset: -4.0 hours
+2025-07-13 12:11:53.248 | INFO     | x20launcher.launcher_application:check_offline_marker:1118 - offline marker time is 1752423113.2470505, current time:1752423113.2480526, offline marker timeout is 86400
+2025-07-13 12:11:53.249 | INFO     | x20launcher.launcher_application:check_local_ip:322 - requesting whoami URL: https://who.easebar.com/v2
+2025-07-13 12:11:53.595 | INFO     | x20launcher.launcher_application:check_local_ip:331 - whoami ret code: 200, setting env GAME_UNISDK_AIM_INFO
+2025-07-13 12:11:53.595 | INFO     | x20launcher.launcher_application:update_region:416 - rg is YYP@
+2025-07-13 12:11:53.595 | INFO     | x20launcher.launcher_application:update_region:423 - loc is NA
+2025-07-13 12:11:53.602 | INFO     | x20launcher.launcher_application:__init__:143 - set orbit project id x20na
+2025-07-13 12:11:53.602 | INFO     | x20launcher.launcher_application:check_offline_marker:1118 - offline marker time is 1752423113.2470505, current time:1752423113.602674, offline marker timeout is 86400
+2025-07-13 12:11:53.602 | INFO     | x20launcher.launcher_application:fire_download_patchlists:1134 - Start download multi patchlists
+2025-07-13 12:11:53.602 | INFO     | x20launcher.utils.multithread_request:send_requests:47 - Start making multi requests
+2025-07-13 12:11:53.605 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/launcher_headcode_steam
+2025-07-13 12:11:53.606 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/launcher_release_steam
+2025-07-13 12:11:53.606 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/pc_release_steam
+2025-07-13 12:11:53.607 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/meta_steam
+2025-07-13 12:11:53.608 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/anti_virus_list
+2025-07-13 12:11:53.609 | INFO     | x20launcher.launcher_application:__init__:204 - QMLContext init finish
+2025-07-13 12:11:53.613 | INFO     | x20launcher.launcher_application:__init__:1705 - Application init finish
+2025-07-13 12:11:53.665 | WARNING  | x20launcher.utils.multithread_request:send_get_request:43 - request failed:https://x20na.update.easebar.com/pl/pc_release_steam, reason is HTTP Error 404: Not Found
+2025-07-13 12:11:53.665 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/pc_release_steam
+2025-07-13 12:11:53.665 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.update.easebar.com/pl/launcher_web_en
+2025-07-13 12:11:53.666 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/anti_virus_list
+2025-07-13 12:11:53.669 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/launcher_release_steam
+2025-07-13 12:11:53.671 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/launcher_headcode_steam
+2025-07-13 12:11:53.671 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/meta_steam
+2025-07-13 12:11:53.723 | WARNING  | x20launcher.utils.multithread_request:send_get_request:43 - request failed:https://x20na.update.easebar.com/pl/launcher_web_en, reason is HTTP Error 404: Not Found
+2025-07-13 12:11:53.724 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.update.easebar.com/pl/launcher_web_en
+2025-07-13 12:11:53.840 | INFO     | x20launcher.utils.drpf:send_drpf_impl:95 - [WhoamiResultSucceed] Send drpf success
+2025-07-13 12:11:54.939 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: MainWindow Completed
+2025-07-13 12:11:54.939 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseView Completed
+2025-07-13 12:11:54.939 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: NewBaseView Completed
+2025-07-13 12:11:54.941 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: ExperimentalFeatureTipsPopup onCompleted
+2025-07-13 12:11:54.941 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: ProblemFeedbackDialog onCompleted
+2025-07-13 12:11:54.948 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: AntiCheatPopup onCompleted
+2025-07-13 12:11:55.060 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: MainWindow lazyLoad
+2025-07-13 12:11:55.073 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: MainWindowLazyLoadItem Ready
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.self_update_bridge:__init__:44 - SelfUpdateBridge init start
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.self_update_bridge:__init__:49 - SelfUpdateBridge init finish
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.download_bridge:__init__:126 - DownloadBridge init start
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.download_bridge:__init__:153 - DownloadBridge init finish
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.repair_bridge:__init__:44 - RepairBridge init start
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.repair_bridge:__init__:53 - RepairBridge init finish
+2025-07-13 12:11:55.073 | INFO     | x20launcher.bridge.settings_bridge:__init__:41 - SettingsBridge init start
+2025-07-13 12:11:55.084 | INFO     | x20launcher.bridge.settings_bridge:__init__:86 - SettingsBridge init finish
+2025-07-13 12:11:55.107 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: MainWindowLazyLoadItem Completed
+2025-07-13 12:11:55.110 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseView lazyLoad
+2025-07-13 12:11:55.110 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseViewLazyLoadItem Ready
+2025-07-13 12:11:56.917 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseViewLazyLoadItem Completed
+2025-07-13 12:11:56.917 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: handleLazyLoadSuccess
+2025-07-13 12:11:56.975 | INFO     | x20launcher.bridge.download_bridge:_clear_outdate_game_log:288 - Clear LegacySaved
+2025-07-13 12:11:56.978 | INFO     | x20launcher.bridge.download_bridge:_start_poll_check_game_exe_impl:224 - Check game C:\Users\Mukun\Projects\LaunchPad\MarvelGame\Marvel.exe is exists: False, and version is 
+2025-07-13 12:11:56.978 | INFO     | x20launcher.bridge.download_bridge:_clear_outdate_game_log:293 - Clear outdate game log
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: SettingsDialog Completed
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseCombobox Completed
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: ProblemFeedbackDialog onCompleted
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: UploadDialog Completed
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: QuitDialog Completed
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: ExperimentalFeatureSwitch Completed
+2025-07-13 12:11:57.032 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: ProblemFeedbackDialog onCompleted
+2025-07-13 12:11:57.033 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: DownloadProgress Completed
+2025-07-13 12:11:57.033 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: SelfUpdateView Completed
+2025-07-13 12:11:57.034 | ERROR    | x20launcher.launcher_application:_initialize_impl:777 - Parse web config failed: the JSON object must be str, bytes or bytearray, not NoneType
+2025-07-13 12:11:57.034 | INFO     | x20launcher.launcher_application:check_headcode:1155 - start check headcode
+2025-07-13 12:11:57.034 | INFO     | x20launcher.launcher_application:check_headcode:1175 - start try get headcode content
+2025-07-13 12:11:57.034 | INFO     | x20launcher.utils.multithread_request:send_requests:47 - Start making multi requests
+2025-07-13 12:11:57.035 | INFO     | x20launcher.launcher_application:download_web_video_impl:803 - Web config is empty, skip download web video
+2025-07-13 12:11:57.035 | INFO     | x20launcher.utils.multithread_request:send_get_request:26 - start sending request: https://x20na.gph.easebar.com/headcode/launcher/steam/headcode_create_steam_id_txt1
+2025-07-13 12:11:57.036 | WARNING  | x20launcher.launcher_application:download_web_video_impl:807 - Local web video file is not exist
+2025-07-13 12:11:57.100 | INFO     | x20launcher.utils.multithread_request:on_done:54 - request done: https://x20na.gph.easebar.com/headcode/launcher/steam/headcode_create_steam_id_txt1
+2025-07-13 12:11:57.103 | INFO     | x20launcher.launcher_application:check_headcode:1201 - start exec headcode headcode_create_steam_id_txt1
+2025-07-13 12:11:57.103 | INFO     | x20launcher.launcher_application:<module>:20 - Create steam id txt start
+2025-07-13 12:11:57.104 | ERROR    | x20launcher.launcher_application:create_steam_id_txt:16 - Failed to create C:\Users\Mukun\Projects\LaunchPad\MarvelGame\Marvel\Binaries\Win64\steam_appid.txt, Error: [Errno 2] No such file or directory: 'C:\\Users\\Mukun\\Projects\\LaunchPad\\MarvelGame\\Marvel\\Binaries\\Win64\\steam_appid.txt'
+2025-07-13 12:11:57.104 | INFO     | x20launcher.launcher_application:<module>:22 - Create steam id txt done
+2025-07-13 12:11:57.127 | ERROR    | x20launcher.bridge.download_bridge:start_upload:214 - Upload profile failed: [WinError 2] The system cannot find the file specified
+2025-07-13 12:11:57.127 | INFO     | x20launcher.launcher_application:next_init_state:921 - Start check self update
+2025-07-13 12:11:57.143 | WARNING  | x20launcher.bridge.self_update_bridge:_parse_patchlist_data:165 - Patchlist content is empty, cannot parse
+2025-07-13 12:11:57.143 | INFO     | x20launcher.bridge.self_update_bridge:check_update_self_impl:128 - Get server patchlist data is empty. cannot update
+2025-07-13 12:11:57.147 | INFO     | x20launcher.launcher_application:next_init_state:926 - Start check game update
+2025-07-13 12:11:57.147 | WARNING  | x20launcher.bridge.download_helper:get_remote_content_only:32 - first remote download patchlist content is empty, start second try
+2025-07-13 12:11:57.186 | WARNING  | x20launcher.bridge.download_helper:get_remote_content_only:50 - Get remote content only failed, reason is: HTTP Error 404: Not Found
+2025-07-13 12:11:57.186 | INFO     | x20launcher.bridge.download_bridge:check_update_impl:364 - Check update, remote version is 0 <class 'str'>
+2025-07-13 12:11:57.186 | INFO     | x20launcher.bridge.download_bridge:check_update_impl:367 - Check update, local version is 0
+2025-07-13 12:11:57.189 | INFO     | x20launcher.launcher_application:next_init_state:939 - Start qsec
+2025-07-13 12:11:57.783 | INFO     | x20launcher.utils.drpf:send_drpf_impl:95 - [OpenLauncher] Send drpf success
+2025-07-13 12:11:57.787 | INFO     | x20launcher.launcher_application:next_init_state:944 - Start check local env
+2025-07-13 12:11:57.787 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [install_dependency]
+2025-07-13 12:11:57.787 | INFO     | x20launcher.launcher_application:install_dependency:1303 - Non-Epic channel, skip install dependency
+2025-07-13 12:11:57.787 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [install_dependency]
+2025-07-13 12:11:57.787 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_gpu_driver]
+2025-07-13 12:11:57.899 | INFO     | x20launcher.utils.user_info:check_gpu_driver:420 - Driver: Intel(R) Arc(TM) Pro Graphics, Driver date >= 20240221, check passed
+2025-07-13 12:11:57.899 | WARNING  | x20launcher.utils.user_info:check_gpu_driver:422 - get gpu has error:
+2025-07-13 12:11:57.899 | INFO     | x20launcher.utils.user_info:check_gpu_driver:400 - Driver: NVIDIA GeForce RTX 4070 Laptop GPU, Driver date >= 20230804, check passed
+2025-07-13 12:11:57.969 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: createWebViewTimer onTriggered
+2025-07-13 12:11:57.971 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseView webViewComponent create
+2025-07-13 12:11:57.971 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseView webViewComponent Ready
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:447 - 10 check Got Driver: Intel(R) Arc(TM) Pro Graphics, Driver date 20241126000000.000000-000
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:457 - 10 check Driver: Intel(R) Arc(TM) Pro Graphics check passed
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:447 - 10 check Got Driver: , Driver date 
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:449 - 10 check passed unknown driver
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:447 - 10 check Got Driver: NVIDIA GeForce RTX 4070 Laptop GPU, Driver date 20250211000000.000000-000
+2025-07-13 12:11:58.032 | INFO     | x20launcher.utils.user_info:check_10_gpu_deiver:457 - 10 check Driver: NVIDIA GeForce RTX 4070 Laptop GPU check passed
+2025-07-13 12:11:58.032 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_gpu_driver]
+2025-07-13 12:11:58.032 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_windows_version]
+2025-07-13 12:11:58.169 | INFO     | x20launcher.utils.user_info:check_windows_version:334 - Windows version is: 10.0.26100
+2025-07-13 12:11:58.170 | INFO     | x20launcher.utils.user_info:check_windows_version:363 - Windows version, check passed
+2025-07-13 12:11:58.170 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_windows_version]
+2025-07-13 12:11:58.170 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_gpu_memory]
+2025-07-13 12:11:58.170 | INFO     | x20launcher.utils.user_info:get_max_vram_from_registry:275 - [get_max_vram_from_registry] current Model: NVIDIA GeForce RTX 4070 Laptop GPU, VRAM (GB): 8.0
+2025-07-13 12:11:58.243 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: WebView onCompleted
+2025-07-13 12:11:58.244 | INFO     | x20launcher.qt_qml.utils:message_handler:19 - qml: BaseView webViewObj create success!
+2025-07-13 12:11:58.492 | INFO     | x20launcher.utils.user_info:get_max_vram_from_powershell:253 - [nvidia smi] Max VRAM GPU: 8.00 GB
+2025-07-13 12:11:58.492 | INFO     | x20launcher.utils.user_info:check_total_gpu_memmory:313 - [check_total_gpu_memory-smi] detected max Model: NVIDIA GeForce RTX 4070 Laptop GPU, VRAM (GB): 7.99609375
+2025-07-13 12:11:58.493 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_gpu_memory]
+2025-07-13 12:11:58.493 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_cpu_name]
+2025-07-13 12:11:58.501 | INFO     | x20launcher.utils.user_info:check_cpu_name:480 - Check cpu name,  cpu name: Intel(R) Core(TM) Ultra 7 165H
+2025-07-13 12:11:58.501 | INFO     | x20launcher.utils.user_info:check_cpu_name:482 - intel cpu, start check gen
+2025-07-13 12:11:58.501 | INFO     | x20launcher.utils.user_info:check_cpu_name:486 - cpu name check passed
+2025-07-13 12:11:58.501 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_cpu_name]
+2025-07-13 12:11:58.501 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_steam_id_txt]
+2025-07-13 12:11:58.502 | ERROR    | x20launcher.utils.user_info:check_steam_id_txt:771 - Failed to create C:\Users\Mukun\Projects\LaunchPad\MarvelGame\Marvel\Binaries\Win64\steam_appid.txt, Error: [Errno 2] No such file or directory: 'C:\\Users\\Mukun\\Projects\\LaunchPad\\MarvelGame\\Marvel\\Binaries\\Win64\\steam_appid.txt'
+2025-07-13 12:11:58.502 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_steam_id_txt]
+2025-07-13 12:11:58.502 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_invalid_pak]
+2025-07-13 12:11:58.502 | ERROR    | x20launcher.utils.user_info:get_paklisk_from_version_info:712 - [get_paklisk_from_version_info] Error reading version.json: [Errno 2] No such file or directory: 'C:\\Users\\Mukun\\Projects\\LaunchPad\\MarvelGame\\version.json'
+2025-07-13 12:11:58.502 | WARNING  | x20launcher.utils.user_info:check_blacklist_pak:755 - get pak list failed, skip check blacklist pak
+2025-07-13 12:11:58.502 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_invalid_pak]
+2025-07-13 12:11:58.502 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_gpu_crashes]
+2025-07-13 12:11:58.502 | INFO     | x20launcher.utils.user_info:check_gpu_crashes:610 - current crashes folder: C:\Users\Mukun\AppData\Local\Marvel\Saved\Crashes
+2025-07-13 12:11:58.502 | INFO     | x20launcher.utils.user_info:check_gpu_crashes:620 - crash found in record, skip checking crash folder UECC-Windows-EE8FB0B7438466FC69D7DF8FC8F336E8_0000
+2025-07-13 12:11:58.504 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_gpu_crashes]
+2025-07-13 12:11:58.504 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_pak_crashes]
+2025-07-13 12:11:58.507 | ERROR    | x20launcher.utils.user_info:get_paklisk_from_version_info:712 - [get_paklisk_from_version_info] Error reading version.json: [Errno 2] No such file or directory: 'C:\\Users\\Mukun\\Projects\\LaunchPad\\MarvelGame\\version.json'
+2025-07-13 12:11:58.507 | WARNING  | x20launcher.utils.user_info:check_invalid_pak_marker:532 - get pak list failed, skip check invalid pak marker
+2025-07-13 12:11:58.507 | INFO     | x20launcher.utils.user_info:check_pak_crashes:568 - [check_pak_crashes] current crashes folder: C:\Users\Mukun\AppData\Local\Marvel\Saved\Crashes
+2025-07-13 12:11:58.512 | INFO     | x20launcher.utils.user_info:check_pak_crashes:579 - pak crashes xml not found, skip check pak crash
+2025-07-13 12:11:58.512 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_pak_crashes]
+2025-07-13 12:11:58.512 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_anti_virus]
+2025-07-13 12:11:58.594 | INFO     | x20launcher.utils.user_info:check_anti_virus:784 - Anti-virus detected, exe:C:\Program Files\Sophos\Sophos File Scanner\SophosFileScanner.exe
+2025-07-13 12:11:58.594 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_anti_virus]
+2025-07-13 12:11:58.594 | INFO     | x20launcher.launcher_application:check_local_env:1044 - start execute env check [check_season_crashes]
+2025-07-13 12:11:58.594 | INFO     | x20launcher.utils.user_info:check_season_crashes:654 - current crashes folder: C:\Users\Mukun\AppData\Local\Marvel\Saved\Crashes
+2025-07-13 12:11:58.595 | WARNING  | x20launcher.utils.user_info:check_season_crashes:660 - version_info_path C:\Users\Mukun\Projects\LaunchPad\MarvelGame\version.json not found
+2025-07-13 12:11:58.595 | INFO     | x20launcher.launcher_application:check_local_env:1046 - executed env check [check_season_crashes]
+2025-07-13 12:11:58.597 | INFO     | x20launcher.launcher_application:next_init_state:948 - Start one time clear
+2025-07-13 12:11:58.599 | INFO     | x20launcher.launcher_application:next_init_state:953 - Init finished, can click start button
+2025-07-13 12:11:58.934 | INFO     | x20launcher.launcher_application:handle_initialize_finished:848 - Handle initialize finished

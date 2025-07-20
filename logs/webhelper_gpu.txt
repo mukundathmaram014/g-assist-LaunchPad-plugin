@@ -1,0 +1,237 @@
+
+
+[2025-07-12 16:55:46] Client version: no bootstrapper found
+[2025-07-12 16:55:46] GPU process started: start count: 0
+
+
+[2025-07-12 16:56:04] Client version: no bootstrapper found
+[2025-07-12 16:56:04] GPU process started: start count: 0
+[2025-07-12 17:01:04] ==================[ GPU Report: Start [0] ]=================
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04] *** Report Section: Client Info ***
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04]  [ client_info ]:
+[2025-07-12 17:01:04]     [ angle_commit_id ]: 5d4df51d1d7d
+[2025-07-12 17:01:04]     [ command_line ]: "C:\Program Files (x86)\Steam\bin\cef\cef.win7x64\steamwebhelper.exe" --user-agent-product="Valve Steam Client" --lang=en-US --log-file="C:\Program Files (x86)\Steam\bin\cef\cef.win7x64\debug.log" --disable-features=BackForwardCache,DocumentPictureInPictur <truncated>
+[2025-07-12 17:01:04]     [ graphics_backend ]: Skia/126 be621ea04206d8fae23952783d1d588d6ce0d9b3
+[2025-07-12 17:01:04]     [ operating_system ]: Windows NT 10.0.26100
+[2025-07-12 17:01:04]     [ revision_identifier ]: 2e81dea53f5ecdc1c057e4c70ecd66151987296a
+[2025-07-12 17:01:04]     [ version ]: Chrome/126.0.6478.183
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04] *** Report Section: GPU Info ***
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04]  [ gpu_info ]:
+[2025-07-12 17:01:04]         [ ANGLEFeatures ]:
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[0] ]: allowCompressedFormats: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[1] ]: alwaysRunLinkSubJobsThreaded: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[2] ]: cacheCompiledShader: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[3] ]: compileJobIsThreadSafe: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[4] ]: disableAnisotropicFiltering: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[5] ]: disableDrawBuffersIndexed: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[6] ]: disableProgramBinary: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[7] ]: disableProgramCaching: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[8] ]: disableProgramCachingForTransformFeedback: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[9] ]: dumpShaderSource: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[10] ]: dumpTranslatedShaders: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[11] ]: emulatePixelLocalStorage: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[12] ]: enableCaptureLimits: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[13] ]: enableProgramBinaryForCapture: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[14] ]: enableShaderSubstitution: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[15] ]: enableTranslatedShaderSubstitution: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[16] ]: forceDepthAttachmentInitOnClear: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[17] ]: forceGlErrorChecking: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[18] ]: forceInitShaderVariables: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[19] ]: forceMinimumMaxVertexAttributes: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[20] ]: forceRobustResourceInit: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[21] ]: linkJobIsThreadSafe: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[22] ]: loseContextOnOutOfMemory: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[23] ]: singleThreadedTextureDecompression: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[24] ]: uncurrentEglSurfaceUponSurfaceDestroy: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[25] ]: addMockTextureNoRenderTarget: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[26] ]: allowClearForRobustResourceInit: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[27] ]: allowES3OnFL100: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[28] ]: allowTranslateUniformBlockToStructuredBuffer: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[29] ]: borderColorSrgb: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[30] ]: callClearTwice: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[31] ]: depthStencilBlitExtraCopy: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[32] ]: disableB5G6R5Support: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[33] ]: disableRasterizerOrderViews: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[34] ]: emulateIsnanFloat: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[35] ]: emulateTinyStencilTextures: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[36] ]: enableTimestampQueries: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[37] ]: expandIntegerPowExpressions: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[38] ]: flushAfterEndingTransformFeedback: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[39] ]: forceAtomicValueResolution: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[40] ]: getDimensionsIgnoresBaseLevel: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[41] ]: mrtPerfWorkaround: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[42] ]: preAddTexelFetchOffsets: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[43] ]: rewriteUnaryMinusOperator: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[44] ]: selectViewInGeometryShader: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[45] ]: setDataFasterThanImageUpload: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[46] ]: skipVSConstantRegisterZero: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[47] ]: supportsNonConstantLoopIndexing: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[48] ]: useInstancedPointSpriteEmulation: disabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[49] ]: useSystemMemoryForConstantBuffers: enabled
+[2025-07-12 17:01:04]                 [ ANGLEFeatures[50] ]: zeroMaxLodWorkaround: disabled
+[2025-07-12 17:01:04]         [ basicInfo ]:
+[2025-07-12 17:01:04]                 [ Initialization time ]: 157
+[2025-07-12 17:01:04]                 [ In-process GPU ]: (null)
+[2025-07-12 17:01:04]                 [ Passthrough Command Decoder ]: (null)
+[2025-07-12 17:01:04]                 [ Sandboxed ]: (null)
+[2025-07-12 17:01:04]                 [ GPU0 ]: VENDOR= 0x8086, DEVICE=0x7d55, SUBSYS=0x223417aa, REV=8, LUID={0,81038}, DRIVER_VENDOR=Intel, DRIVER_VERSION=32.0.101.6303 *ACTIVE*
+[2025-07-12 17:01:04]                 [ GPU1 ]: VENDOR= 0x10de, DEVICE=0x2820, SUBSYS=0x223417aa, REV=161, LUID={0,82269}, DRIVER_VERSION=32.0.15.7240
+[2025-07-12 17:01:04]                 [ GPU2 ]: VENDOR= 0x1414, DEVICE=0x008c, LUID={0,82153}, DRIVER_VERSION=10.0.26100.4484
+[2025-07-12 17:01:04]                 [ Optimus ]: (null)
+[2025-07-12 17:01:04]                 [ AMD switchable ]: (null)
+[2025-07-12 17:01:04]                 [ Desktop compositing ]: Aero Glass
+[2025-07-12 17:01:04]                 [ Direct composition ]: (null)
+[2025-07-12 17:01:04]                 [ Supports overlays ]: (null)
+[2025-07-12 17:01:04]                 [ YUY2 overlay support ]: SCALING
+[2025-07-12 17:01:04]                 [ NV12 overlay support ]: SCALING
+[2025-07-12 17:01:04]                 [ BGRA8 overlay support ]: SCALING
+[2025-07-12 17:01:04]                 [ RGB10A2 overlay support ]: SCALING
+[2025-07-12 17:01:04]                 [ DirectML feature level ]: Not supported
+[2025-07-12 17:01:04]                 [ Driver D3D12 feature level ]: Not supported
+[2025-07-12 17:01:04]                 [ Driver Vulkan API version ]: Not supported
+[2025-07-12 17:01:04]                 [ GPU CUDA compute capability major version ]: (null)
+[2025-07-12 17:01:04]                 [ Pixel shader version ]: 5.0
+[2025-07-12 17:01:04]                 [ Vertex shader version ]: 5.0
+[2025-07-12 17:01:04]                 [ Max. MSAA samples ]: 8
+[2025-07-12 17:01:04]                 [ Machine model name ]: (null)
+[2025-07-12 17:01:04]                 [ Machine model version ]: (null)
+[2025-07-12 17:01:04]                 [ GL implementation parts ]: (gl=egl-angle,angle=d3d11)
+[2025-07-12 17:01:04]                 [ Display type ]: ANGLE_D3D11
+[2025-07-12 17:01:04]                 [ GL_VENDOR ]: Google Inc. (Intel)
+[2025-07-12 17:01:04]                 [ GL_RENDERER ]: ANGLE (Intel, Intel(R) Arc(TM) Pro Graphics (0x00007D55) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.6303)
+[2025-07-12 17:01:04]                 [ GL_VERSION ]: OpenGL ES 2.0.0 (ANGLE 2.1.23105 git hash: 5d4df51d1d7d)
+[2025-07-12 17:01:04]                 [ GL_EXTENSIONS ]: GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_client_arrays GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_lossy_etc_decode GL_ANGLE_memory_size GL_ANGLE_multi_draw GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_request_extension GL_ANGLE_robust_client_memory GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_usage GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_color_buffer_float_rgb GL_CHROMIUM_color_buffer_float_rgba GL_CHROMIUM_copy_compressed_texture GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_CHROMIUM_sync_query 
+[2025-07-12 17:01:04]                 [ Disabled Extensions ]: GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_MESA_framebuffer_flip_y
+[2025-07-12 17:01:04]                 [ Disabled WebGL Extensions ]: (null)
+[2025-07-12 17:01:04]                 [ Window system binding vendor ]: Google Inc. (Intel)
+[2025-07-12 17:01:04]                 [ Window system binding version ]: 1.5 (ANGLE 2.1.23105 git hash: 5d4df51d1d7d)
+[2025-07-12 17:01:04]                 [ Window system binding extensions ]: EGL_EXT_create_context_robustness EGL_ANGLE_d3d_share_handle_client_buffer EGL_ANGLE_d3d_texture_client_buffer EGL_ANGLE_surface_d3d_texture_2d_share_handle EGL_ANGLE_query_surface_pointer EGL_ANGLE_window_fixed_size EGL_ANGLE_keyed_mutex EGL_ANGLE_surface_orientation EGL_ANGLE_direct_composition EGL_NV_post_sub_buffer EGL_KHR_create_context EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_get_all_proc_addresses EGL_KHR_stream EGL_KHR_stream_consumer_gltexture EGL_NV_stream_consumer_gltexture_yuv EGL_ANGLE_stream_producer_d3d_texture EGL_ANGLE_create_context_webgl_compatibility EGL_CHROMIUM_create_context_bind_generates_resource EGL_CHROMIUM_sync_control EGL_EXT_pixel_format_float EGL_KHR_surfaceless_context EGL_ANGLE_display_texture_share_group EGL_ANGLE_display_semaphore_share_group EGL_ANGLE_create_context_client_arrays EGL_ANGLE_program_cache_control EGL_ANGLE_robust_re
+[2025-07-12 17:01:04]                 [ Direct rendering version ]: unknown
+[2025-07-12 17:01:04]                 [ Reset notification strategy ]: 0x8252
+[2025-07-12 17:01:04]                 [ GPU process crash count ]: (null)
+[2025-07-12 17:01:04]                 [ gfx::BufferFormats supported for allocation and texturing ]: R_8: not supported,  R_16: not supported,  RG_88: not supported,  RG_1616: not supported,  BGR_565: not supported,  RGBA_4444: not supported,  RGBX_8888: not supported,  RGBA_8888: not supported,  BGRX_8888: not supported,  BGRA_1010102: not supported,  RGBA_1010102: not supported,  BGRA_8888: not supported,  RGBA_F16: not supported,  YVU_420: not supported,  YUV_420_BIPLANAR: not supported,  YUVA_420_TRIPLANAR: not supported,  P010: not supported
+[2025-07-12 17:01:04]         [ compositorInfo ]:
+[2025-07-12 17:01:04]                 [ Tile Update Mode ]: One-copy
+[2025-07-12 17:01:04]                 [ Partial Raster ]: Enabled
+[2025-07-12 17:01:04]         [ dawnInfo ]:
+[2025-07-12 17:01:04]         [ devicePerfInfo ]:
+[2025-07-12 17:01:04]         [ displayInfo ]:
+[2025-07-12 17:01:04]                 [ Info  ]: Display[2680688876] bounds=[0,0 1920x1080], workarea=[0,0 1920x1032], scale=1, rotation=0, panel_rotation=0 external detected
+[2025-07-12 17:01:04]                 [ Color space (all) ]: {r:[0.6512, 0.3264], g:[0.3013, 0.6048], b:[0.1440, 0.3264], w:[0.3127, 0.3290]}, transfer:SRGB, matrix:RGB, range:FULL}
+[2025-07-12 17:01:04]                 [ Buffer format (all) ]: BGRA_8888
+[2025-07-12 17:01:04]                 [ Color volume ]: {r:[0.6512, 0.3264], g:[0.3013, 0.6048], b:[0.1440, 0.3264], w:[0.3127, 0.3290]}
+[2025-07-12 17:01:04]                 [ SDR white level in nits ]: 203
+[2025-07-12 17:01:04]                 [ HDR relative maximum luminance ]: 1
+[2025-07-12 17:01:04]                 [ Bits per color component ]: 8
+[2025-07-12 17:01:04]                 [ Bits per pixel ]: 24
+[2025-07-12 17:01:04]                 [ Refresh Rate in Hz ]: 60
+[2025-07-12 17:01:04]         [ featureStatus ]:
+[2025-07-12 17:01:04]                 [ featureStatus ]:
+[2025-07-12 17:01:04]                     [ 2d_canvas ]: enabled
+[2025-07-12 17:01:04]                     [ canvas_oop_rasterization ]: enabled_on
+[2025-07-12 17:01:04]                     [ direct_rendering_display_compositor ]: disabled_off_ok
+[2025-07-12 17:01:04]                     [ gpu_compositing ]: enabled
+[2025-07-12 17:01:04]                     [ multiple_raster_threads ]: enabled_on
+[2025-07-12 17:01:04]                     [ opengl ]: enabled_on
+[2025-07-12 17:01:04]                     [ rasterization ]: enabled
+[2025-07-12 17:01:04]                     [ raw_draw ]: disabled_off_ok
+[2025-07-12 17:01:04]                     [ skia_graphite ]: disabled_off
+[2025-07-12 17:01:04]                     [ video_decode ]: enabled
+[2025-07-12 17:01:04]                     [ video_encode ]: enabled
+[2025-07-12 17:01:04]                     [ vulkan ]: disabled_off
+[2025-07-12 17:01:04]                     [ webgl ]: enabled
+[2025-07-12 17:01:04]                     [ webgl2 ]: enabled
+[2025-07-12 17:01:04]                     [ webgpu ]: enabled
+[2025-07-12 17:01:04]                     [ webnn ]: disabled_off
+[2025-07-12 17:01:04]                 [ problems ]:
+[2025-07-12 17:01:04]                         [ problems[0] ]: Some drivers are unable to reset the D3D device in the GPU process sandbox
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  exit_on_context_lost
+[2025-07-12 17:01:04]                         [ problems[1] ]: On Intel GPUs MSAA performance is not acceptable for GPU rasterization
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  msaa_is_slow
+[2025-07-12 17:01:04]                         [ problems[2] ]: Disable KHR_blend_equation_advanced until cc shaders are updated
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  disable(GL_KHR_blend_equation_advanced) disable(GL_KHR_blend_equation_advanced_coherent)
+[2025-07-12 17:01:04]                         [ problems[3] ]: Expose WebGL's disjoint_timer_query extensions on platforms with site isolation
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  enable_webgl_timer_query_extensions
+[2025-07-12 17:01:04]                         [ problems[4] ]: Disable GL_MESA_framebuffer_flip_y for desktop GL
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  disable(GL_MESA_framebuffer_flip_y)
+[2025-07-12 17:01:04]                         [ problems[5] ]: Enable HDR video playing through overlay on Intel
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  force_rgb10a2_overlay_support
+[2025-07-12 17:01:04]                         [ problems[6] ]: Intel GPUs fail to report BGRA8 overlay support
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  enable_bgra8_overlays_with_yuv_overlay_support
+[2025-07-12 17:01:04]                         [ problems[7] ]: 8x MSAA for WebGL contexts is slow on Win Intel
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  max_msaa_sample_count_4
+[2025-07-12 17:01:04]                         [ problems[8] ]: Promote 2 videos to hardware overlays on Windows Intel platforms
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  supports_two_yuv_hardware_overlays
+[2025-07-12 17:01:04]                         [ problems[9] ]: Disable software overlays for Intel GPUs. All Skylake+ devices support hw overlays, older devices peform poorly.
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  disable_direct_composition_sw_video_overlays
+[2025-07-12 17:01:04]                         [ problems[10] ]: Intel GPUs do not promote downscaled overlays
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  no_downscaled_overlay_promotion
+[2025-07-12 17:01:04]                         [ problems[11] ]: Disable hardware MFT Av1 encoder on machines with multiple GPUs except Intel alchemist GPUs
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  disable_accelerated_av1_encode
+[2025-07-12 17:01:04]                         [ problems[12] ]: Force to use the triple buffer video swap chain of direct composition
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  force_dcomp_triple_buffer_video_swap_chain
+[2025-07-12 17:01:04]                         [ problems[13] ]: Only enable video processor auto HDR on NVIDIA GPUs with 550.50+ driver
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  disable_vp_auto_hdr
+[2025-07-12 17:01:04]                         [ problems[14] ]: Corruption when consecutive VP9 keyframes are requested from MFVEA on Intel.
+[2025-07-12 17:01:04]                             [ tag ]: workarounds
+[2025-07-12 17:01:04]                             [ affectedSettings ]:  avoid_consecutive_keyframes_for_vp9
+[2025-07-12 17:01:04]                 [ workarounds ]:
+[2025-07-12 17:01:04]                     [ workarounds[0] ]: avoid_consecutive_keyframes_for_vp9
+[2025-07-12 17:01:04]                     [ workarounds[1] ]: disable_accelerated_av1_encode
+[2025-07-12 17:01:04]                     [ workarounds[2] ]: disable_direct_composition_sw_video_overlays
+[2025-07-12 17:01:04]                     [ workarounds[3] ]: disable_vp_auto_hdr
+[2025-07-12 17:01:04]                     [ workarounds[4] ]: enable_bgra8_overlays_with_yuv_overlay_support
+[2025-07-12 17:01:04]                     [ workarounds[5] ]: enable_webgl_timer_query_extensions
+[2025-07-12 17:01:04]                     [ workarounds[6] ]: exit_on_context_lost
+[2025-07-12 17:01:04]                     [ workarounds[7] ]: force_dcomp_triple_buffer_video_swap_chain
+[2025-07-12 17:01:04]                     [ workarounds[8] ]: force_rgb10a2_overlay_support
+[2025-07-12 17:01:04]                     [ workarounds[9] ]: max_msaa_sample_count_4
+[2025-07-12 17:01:04]                     [ workarounds[10] ]: msaa_is_slow
+[2025-07-12 17:01:04]                     [ workarounds[11] ]: no_downscaled_overlay_promotion
+[2025-07-12 17:01:04]                     [ workarounds[12] ]: supports_two_yuv_hardware_overlays
+[2025-07-12 17:01:04]                     [ workarounds[13] ]: disabled_extension_GL_KHR_blend_equation_advanced
+[2025-07-12 17:01:04]                     [ workarounds[14] ]: disabled_extension_GL_KHR_blend_equation_advanced_coherent
+[2025-07-12 17:01:04]                     [ workarounds[15] ]: disabled_extension_GL_MESA_framebuffer_flip_y
+[2025-07-12 17:01:04]         [ gpuMemoryBufferInfo ]:
+[2025-07-12 17:01:04]                 [ R_8 ]: Software only
+[2025-07-12 17:01:04]                 [ R_16 ]: Software only
+[2025-07-12 17:01:04]                 [ RG_88 ]: Software only
+[2025-07-12 17:01:04]                 [ RG_1616 ]: Software only
+[2025-07-12 17:01:04]                 [ BGR_565 ]: Software only
+[2025-07-12 17:01:04]                 [ RGBA_4444 ]: Software only
+[2025-07-12 17:01:04]                 [ RGBX_8888 ]:  GPU_READ, SCANOUT
+[2025-07-12 17:01:04]                 [ RGBA_8888 ]:  GPU_READ, SCANOUT
+[2025-07-12 17:01:04]                 [ BGRX_8888 ]:  GPU_READ, SCANOUT
+[2025-07-12 17:01:04]                 [ BGRA_1010102 ]: Software only
+[2025-07-12 17:01:04]                 [ RGBA_1010102 ]: Software only
+[2025-07-12 17:01:04]                 [ BGRA_8888 ]:  GPU_READ, SCANOUT
+[2025-07-12 17:01:04]                 [ RGBA_F16 ]: Software only
+[2025-07-12 17:01:04]                 [ YVU_420 ]: Software only
+[2025-07-12 17:01:04]                 [ YUV_420_BIPLANAR ]: Software only
+[2025-07-12 17:01:04]                 [ YUVA_420_TRIPLANAR ]: Software only
+[2025-07-12 17:01:04]                 [ P010 ]: Software only
+[2025-07-12 17:01:04]         [ videoAcceleratorsInfo ]:
+[2025-07-12 17:01:04]                 [ Decoding ]: (null)
+[2025-07-12 17:01:04]                 [ Encoding ]: (null)
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04] *** Report Section: Log Messages ***
+[2025-07-12 17:01:04]  
+[2025-07-12 17:01:04] ===================[ GPU Report: End [0] ]==================
