@@ -18,7 +18,7 @@ For example, say “start development mode” to automatically launch VSCode, Ch
 ## Requirements
 
 - Windows PC
-- Python 3.12+ (for development/building)
+- Python 3.7+ (for development/building)
 - G-Assist installed
 - Plugin dependencies listed in `requirements.txt`
 - Applications to launch must have known absolute paths
@@ -74,9 +74,10 @@ Say or type:
 hey launchpad, create mode called gaming for apps steam, chrome, and discord
 ```
 
-G-Assist will create a new "gaming" mode using the currently running Steam, Chrome, and Discord. Make sure these apps are already running when you do this command otherwise it will not work
+G-Assist will create a new "gaming" mode using the currently running Steam, Chrome, and Discord. Make sure these apps are already running when you do this command otherwise it will not work.
 
 Launch a Mode
+
 Say or type:
 
 ```text
@@ -86,6 +87,7 @@ hey launchpad, launch gaming mode
 G-Assist will launch all apps configured for the "gaming" mode.
 
 Close a Mode
+
 Say or type:
 
 ```text
@@ -95,6 +97,7 @@ hey launchpad, close gaming mode
 G-Assist will close all apps in the "gaming" mode.
 
 List Available Modes
+
 Say or type:
 
 ```text
@@ -104,6 +107,7 @@ hey launchpad, list modes
 G-Assist will show all configured modes.
 
 Remove Apps from a Mode
+
 Say or type:
 
 ```text
@@ -113,6 +117,7 @@ hey launchpad, remove apps chrome, discord from gaming mode
 G-Assist will remove Notepad and Discord from the "gaming" mode.
 
 Add Apps to an Existing Mode
+
 Say or type:
 
 ```text
