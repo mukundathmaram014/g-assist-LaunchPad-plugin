@@ -7,7 +7,9 @@
   <img src="launchpad-photo.png" alt="LaunchPad Screenshot" width="48%">
 </p>
 
-
+<p align="center" style="font-size: 0.9em; color: gray;">
+  Click on the image above to watch the demo video
+</p>
 
 **LaunchPad** is a G-Assist plugin that enables you to instantly switch between custom modes, for which you can configure with groups of applications. LaunchPad allows you to open sets of apps with a single voice or text command, streamlining your workflow and productivity.
 
