@@ -22,6 +22,9 @@ from ctypes import byref, windll, wintypes
 from typing import Dict, Optional
 import psutil
 import ast
+import win32gui
+import win32process
+import win32api
 
 
 # Data Types
@@ -37,6 +40,34 @@ MODES_FILE = os.path.join(
 
 
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+# Common app name aliases -> actual process names (without .exe)
+# Only include entries where the user-friendly name differs from the process name
+APP_ALIASES = {
+
+    
+    # Browsers
+    "edge": "msedge",
+    "microsoft edge": "msedge",
+    "google chrome": "chrome",
+    
+    # Development
+    "vscode": "code",
+    "vs code": "code",
+    "visual studio code": "code",
+
+    
+    # Communication
+    "teams": "ms-teams",
+    "microsoft teams": "ms-teams",
+    
+    # Gaming
+    "epic games": "epicgameslauncher",
+    "epic": "epicgameslauncher",
+    
+    # Utilities
+    "file explorer": "explorer",
+}
 
 #reads modes from modes.json
 def read_modes_config():
@@ -74,19 +105,189 @@ def close_apps(app_paths: list[str]) -> list[str]:
             failed.append(path)
     return failed
 
-#gets file path of running file by name
-def get_app_path_by_name(app_name: str) -> str | None:
+# --- App Matching Helper Functions ---
+
+def get_exe_product_name(exe_path: str) -> str | None:
+    """Extract the product name from an executable's version info metadata."""
+    if not exe_path:
+        return None
+    
+    # Common language code pairs to try
+    lang_codepages = [
+        "040904B0",  # US English, Unicode
+        "040904E4",  # US English, Windows Multilingual
+        "000004B0",  # Neutral, Unicode
+    ]
+    
+    for lang_cp in lang_codepages:
+        try:
+            info = win32api.GetFileVersionInfo(exe_path, f"\\StringFileInfo\\{lang_cp}\\ProductName")
+            if info:
+                return info
+        except:
+            continue
+    
+    # Try to get the language from the file itself
+    try:
+        lang, codepage = win32api.GetFileVersionInfo(exe_path, "\\VarFileInfo\\Translation")[0]
+        lang_cp = f"{lang:04X}{codepage:04X}"
+        info = win32api.GetFileVersionInfo(exe_path, f"\\StringFileInfo\\{lang_cp}\\ProductName")
+        return info
+    except:
+        return None
+
+
+def match_by_process_name_exact(search_name: str) -> str | None:
+    """Find app by exact process name match (case-insensitive)."""
+    search_lower = search_name.lower()
+    
     for proc in psutil.process_iter(['name', 'exe']):
         try:
-            name = proc.info['name'].lower()
-            if name.endswith(".exe"):
-                name_without_ext = name[:-4]
-            else:
-                name_without_ext = name
-            if name_without_ext == app_name.lower():
+            name = proc.info['name']
+            if not name:
+                continue
+            name_lower = name.lower()
+            name_without_ext = name_lower[:-4] if name_lower.endswith(".exe") else name_lower
+            
+            if name_without_ext == search_lower:
                 return proc.info['exe']
         except (psutil.AccessDenied, psutil.NoSuchProcess):
             continue
+    return None
+
+
+def match_by_process_name_fuzzy(app_name: str) -> str | None:
+    """Find app by partial/fuzzy process name match."""
+    search_lower = app_name.lower()
+    
+    for proc in psutil.process_iter(['name', 'exe']):
+        try:
+            name = proc.info['name']
+            if not name:
+                continue
+            name_lower = name.lower()
+            name_without_ext = name_lower[:-4] if name_lower.endswith(".exe") else name_lower
+            
+            # Check if search term is contained in process name
+            if search_lower in name_without_ext:
+                return proc.info['exe']
+        except (psutil.AccessDenied, psutil.NoSuchProcess):
+            continue
+    return None
+
+
+def match_by_window_title(app_name: str) -> str | None:
+    """Find app by its visible window title."""
+    result = None
+    search_lower = app_name.lower()
+    
+    def enum_callback(hwnd, _):
+        nonlocal result
+        if result:  # Already found
+            return True
+        
+        if not win32gui.IsWindowVisible(hwnd):
+            return True
+        
+        try:
+            title = win32gui.GetWindowText(hwnd)
+            if not title:
+                return True
+            
+            if search_lower in title.lower():
+                # Get the process ID for this window
+                _, pid = win32process.GetWindowThreadProcessId(hwnd)
+                try:
+                    proc = psutil.Process(pid)
+                    exe_path = proc.exe()
+                    if exe_path:
+                        result = exe_path
+                        return False  # Stop enumeration
+                except (psutil.AccessDenied, psutil.NoSuchProcess):
+                    pass
+        except:
+            pass
+        return True  # Continue enumeration
+    
+    try:
+        win32gui.EnumWindows(enum_callback, None)
+    except:
+        pass
+    
+    return result
+
+
+def match_by_exe_metadata(app_name: str) -> str | None:
+    """Find app by executable's embedded product name metadata."""
+    search_lower = app_name.lower()
+    
+    for proc in psutil.process_iter(['exe']):
+        try:
+            exe_path = proc.info['exe']
+            if not exe_path:
+                continue
+            
+            product_name = get_exe_product_name(exe_path)
+            if product_name and search_lower in product_name.lower():
+                return exe_path
+        except (psutil.AccessDenied, psutil.NoSuchProcess):
+            continue
+    return None
+
+
+def get_app_path_by_name(app_name: str) -> str | None:
+    """
+    Find the executable path of a running application by name.
+    
+    Uses a hybrid approach with fallback chain:
+    1. Alias mapping (instant, handles known app name differences)
+    2. Exact process name match
+    3. Fuzzy/partial process name match
+    4. Window title matching (matches what users see)
+    5. Executable metadata (reads ProductName from exe)
+    
+    Args:
+        app_name: User-provided application name (e.g., "Chrome", "VS Code", "Word")
+    
+    Returns:
+        Full executable path if found, None otherwise
+    """
+    logging.info(f"Searching for app: {app_name}")
+    
+    # 1. Try alias mapping first
+    aliased_name = APP_ALIASES.get(app_name.lower())
+    if aliased_name:
+        logging.info(f"Found alias: {app_name} -> {aliased_name}")
+        result = match_by_process_name_exact(aliased_name)
+        if result:
+            logging.info(f"Matched via alias: {result}")
+            return result
+    
+    # 2. Try exact process name match
+    result = match_by_process_name_exact(app_name)
+    if result:
+        logging.info(f"Matched via exact process name: {result}")
+        return result
+    
+    # 3. Try fuzzy/partial process name match
+    result = match_by_process_name_fuzzy(app_name)
+    if result:
+        logging.info(f"Matched via fuzzy process name: {result}")
+        return result
+    
+    # 4. Try window title matching
+    result = match_by_window_title(app_name)
+    if result:
+        logging.info(f"Matched via window title: {result}")
+        return result
+    
+    # 5. Try executable metadata 
+    result = match_by_exe_metadata(app_name)
+    if result:
+        logging.info(f"Matched via exe metadata: {result}")
+        return result
+    
+    logging.warning(f"No match found for app: {app_name}")
     return None
 
 def main():

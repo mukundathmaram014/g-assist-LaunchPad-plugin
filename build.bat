@@ -24,11 +24,11 @@ set PLUGIN_DIR=%DIST_DIR%\launchpad
 if exist %VENV% (
 	call %VENV%\Scripts\activate.bat
 
-	:: Ensure spotify subfolder exists
+	:: Ensure plugin subfolder exists
 	if not exist "%PLUGIN_DIR%" mkdir "%PLUGIN_DIR%"
 
 	:: Replace 'g-assist-plugin' with the name of your plugin
-	pyinstaller --onefile --name g-assist-plugin-launchpad --distpath "%PLUGIN_DIR%" plugin.py
+	%PYTHON% -m PyInstaller --onefile --name g-assist-plugin-launchpad --distpath "%PLUGIN_DIR%" plugin.py
 	if exist manifest.json (
 		copy /y manifest.json "%PLUGIN_DIR%\manifest.json"
 		echo manifest.json copied successfully.
