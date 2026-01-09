@@ -232,6 +232,10 @@ APP_ALIASES = {
 
 To find the actual process name, open Task Manager, go to the "Details" tab, and look for the `.exe` name (without the extension).
 
+**Contribute Your Alias:**
+
+If you add a useful alias, please consider submitting a pull request to add it to the main project! This helps others who may face the same issue in the future. See the [Contributing](#want-to-contribute) section for how to submit a PR.
+
 ### Available Commands
 
 ### `initialize`
