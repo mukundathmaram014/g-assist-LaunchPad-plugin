@@ -121,6 +121,22 @@
           "description": "[required] List of application names to remove. "
         }
       }
-    }
+    },
+    {
+      "name": "list_apps_in_mode_command",
+      "description": "Returns a list of all apps in a mode",
+      "tags": [
+        "list",
+        "apps", 
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "[required] The name of the mode."
+        }
+      }
+    } 
+
   ]
 }

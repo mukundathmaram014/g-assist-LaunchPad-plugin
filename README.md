@@ -21,6 +21,7 @@ For example, say “start development mode” to automatically launch VSCode, Ch
 - Create new modes based on currently running apps
 - Launch your configured modes (like `development`, `gaming`, `focus`)
 - Add/remove apps from existing modes
+- List apps in a specific mode
 - Delete modes
 - Mode configuration saved in `modes.json`
 - Voice/text input supported via G-Assist
@@ -116,6 +117,16 @@ hey launchpad, list modes
 
 G-Assist will show all configured modes.
 
+List Apps in a Mode
+
+Say or type:
+
+```text
+hey launchpad, list apps in gaming mode
+```
+
+G-Assist will show all apps configured for the "gaming" mode by their names.
+
 Remove Apps from a Mode
 
 Say or type:
@@ -173,16 +184,53 @@ The LaunchPad plugin is a Python-based G-Assist extension that stores user-creat
 
 ### Modes
 
-Modes are stored in the `modes.json` file as a dictionary, where each key is a mode name and the value is a list of absolute executable paths for the applications associated with that mode.
+Modes are stored in the `modes.json` file as a dictionary, where each key is a mode name and the value is a list of application entries. Each entry contains both the user-friendly app name and the executable path.
 
 Example structure:
 
 ```json
 {
-  "gaming": ["C:/Program Files/Steam/steam.exe", "C:/Program Files/Discord/discord.exe"],
-  "work": ["C:/Program Files/VSCode/Code.exe", "C:/Program Files/Chrome/Application/chrome.exe"]
+  "gaming": [
+    {"name": "Steam", "path": "C:/Program Files/Steam/steam.exe"},
+    {"name": "Discord", "path": "C:/Program Files/Discord/discord.exe"}
+  ],
+  "work": [
+    {"name": "vscode", "path": "C:/Program Files/VSCode/Code.exe"},
+    {"name": "Chrome", "path": "C:/Program Files/Chrome/Application/chrome.exe"}
+  ]
 }
 ```
+
+This structure preserves the original app name you used when creating the mode, making it easier to manage and display apps.
+
+### App Aliases
+
+LaunchPad includes a built-in alias system to help match common app names to their actual process names. This allows you to use friendly names like "vscode" instead of needing to know the actual process name "code".
+
+Current aliases include:
+
+| User-Friendly Name | Process Name |
+|--------------------|-------------|
+| `edge`, `microsoft edge` | `msedge` |
+| `google chrome` | `chrome` |
+| `vscode`, `vs code`, `visual studio code` | `code` |
+| `teams`, `microsoft teams` | `ms-teams` |
+| `epic games`, `epic` | `epicgameslauncher` |
+| `file explorer` | `explorer` |
+
+**Adding Custom Aliases:**
+
+If you find an app that isn't being detected properly, you can add your own alias by editing the `APP_ALIASES` dictionary in `plugin.py`:
+
+```python
+APP_ALIASES = {
+    # Add your custom alias here
+    "my app name": "actualprocessname",
+    # existing aliases...
+}
+```
+
+To find the actual process name, open Task Manager, go to the "Details" tab, and look for the `.exe` name (without the extension).
 
 ### Available Commands
 
@@ -264,6 +312,15 @@ The command retrieves the list of apps associated with the given mode from `mode
 
 Returns a success response if all apps are closed successfully, or a failure response listing any apps that could not be closed.
 
+### `list_apps_in_mode_command`
+Lists all applications configured for a specified mode, displaying their user-friendly names.
+
+**Parameters:**
+- `mode` (string): The name of the mode to list apps for (e.g., "gaming", "work").
+
+The command retrieves the list of apps associated with the given mode from `modes.json` and returns their names (not the full executable paths). This provides a clean, readable list of what apps are in a mode.
+
+Returns a success response with the list of app names, or a failure response if the mode does not exist.
 
 #### Logging
 - Log file location: `%USERPROFILE%\LaunchPad_plugin.log`

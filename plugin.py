@@ -79,20 +79,26 @@ def read_modes_config():
         return {}
 
 #launches apps
-def launch_apps(app_paths: list[str]) -> list[str]:
+def launch_apps(apps: list[dict]) -> list[str]:
+    """Launch apps from list of {"name": str, "path": str} dicts."""
     failed = []
-    for path in app_paths:
+    for app in apps:
+        path = app["path"]
+        name = app["name"]
         try:
             os.startfile(path)
         except Exception as e:
-            logging.error(f"Failed to launch {path}: {str(e)}")
-            failed.append(path)
+            logging.error(f"Failed to launch {name} ({path}): {str(e)}")
+            failed.append(name)
     return failed
 
 #closes apps
-def close_apps(app_paths: list[str]) -> list[str]:
+def close_apps(apps: list[dict]) -> list[str]:
+    """Close apps from list of {"name": str, "path": str} dicts."""
     failed = []
-    for path in app_paths:
+    for app in apps:
+        path = app["path"]
+        name = app["name"]
         closed = False
         for proc in psutil.process_iter(['exe']):
             try:
@@ -102,7 +108,7 @@ def close_apps(app_paths: list[str]) -> list[str]:
             except (psutil.NoSuchProcess, psutil.AccessDenied):
                 continue
         if not closed:
-            failed.append(path)
+            failed.append(name)
     return failed
 
 # --- App Matching Helper Functions ---
@@ -322,6 +328,7 @@ def main():
         'add_apps_to_mode_command' : add_apps_to_mode_command,
         'remove_apps_from_mode_command' : remove_apps_from_mode_command,
         'close_mode_command' : close_mode_command,
+        'list_apps_in_mode_command' : list_apps_in_mode_command
     }
     cmd = ''
 
@@ -630,13 +637,13 @@ def add_mode_command(params: dict = None, *_args) -> dict:
     # Confirms apps is now a list of strings
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
-    app_paths = []
+    app_entries = []
 
-    # For each app name, get its executable path if running; collect valid paths, or fail if any app is not found.
+    # For each app name, get its executable path if running; collect valid entries, or fail if any app is not found.
     for app in apps:
         app_path = get_app_path_by_name(app)
-        if (app_path):
-            app_paths.append(get_app_path_by_name(app))
+        if app_path:
+            app_entries.append({"name": app, "path": app_path})
         else:
             return generate_failure_response(f"app {app} is currently not running or not installed in your system")
 
@@ -646,12 +653,12 @@ def add_mode_command(params: dict = None, *_args) -> dict:
             modes = json.load(f)
             if mode in modes:
                 return generate_failure_response(f"Mode '{mode}' already exists.")
-            modes[mode] = app_paths
+            modes[mode] = app_entries
             # dumps new json object in modes.json
             f.seek(0)
             json.dump(modes, f, indent=4)
             f.truncate()
-        return generate_success_response(f"Mode '{mode}' created with {len(app_paths)} apps.")
+        return generate_success_response(f"Mode '{mode}' created with {len(app_entries)} apps.")
     except Exception as e:
         logging.error(f"Failed to add mode from selection: {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
@@ -734,13 +741,13 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
     # Confirms apps is now a list of strings
     if not isinstance(apps, list) or not all(isinstance(p, str) for p in apps):
         return generate_failure_response("'apps' must be a list of strings.")
-    app_paths = []
+    app_entries = []
 
-    # For each app name, get its executable path if running; collect valid paths, or fail if any app is not found.
+    # For each app name, get its executable path if running; collect valid entries, or fail if any app is not found.
     for app in apps:
         app_path = get_app_path_by_name(app)
-        if (app_path):
-            app_paths.append(get_app_path_by_name(app))
+        if app_path:
+            app_entries.append({"name": app, "path": app_path})
         else:
             return generate_failure_response(f"app {app} is currently not running or not installed in your system")
 
@@ -750,9 +757,10 @@ def add_apps_to_mode_command(params: dict = None, *_args) -> dict:
             modes = json.load(f)
             if mode not in modes:
                 return generate_failure_response(f"Mode '{mode}' does not exist.")
-            for app_path in app_paths:
-                if app_path not in modes[mode]:
-                    modes[mode].append(app_path)
+            existing_paths = [entry["path"] for entry in modes[mode]]
+            for entry in app_entries:
+                if entry["path"] not in existing_paths:
+                    modes[mode].append(entry)
             
             # dumps new json object in modes.json
             f.seek(0)
@@ -811,15 +819,15 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
             if mode not in modes:
                 return generate_failure_response(f"Mode '{mode}' does not exist.")
             new_apps = []
-            for app_path in modes[mode]:
-                # removes apps 
+            for entry in modes[mode]:
+                # removes apps by matching name (case-insensitive)
                 keep = True
                 for app in apps:
-                    if (app.lower() in os.path.basename(app_path).lower().replace('.exe', '')):
+                    if app.lower() == entry["name"].lower():
                         keep = False
                         break
                 if keep:
-                    new_apps.append(app_path)
+                    new_apps.append(entry)
             modes[mode] = new_apps
             
             # dumps new json object in modes.json
@@ -830,6 +838,40 @@ def remove_apps_from_mode_command(params: dict = None, *_args) -> dict:
     except Exception as e:
         logging.error(f"Failed to delete apps {apps} from mode '{mode}': {str(e)}")
         return generate_failure_response("Failed to write to modes config.")
+
+def list_apps_in_mode_command(params: dict = None, *_args) -> dict:
+    '''
+    Returns a list of all apps stored in a specific mode
+
+    Args:
+        params: Dictionary with 'mode' (str)
+        *_args: Additional unused arguments.
+
+    Returns:
+        Success response if apps in mode are successfully listed, or failure response if mode does not exist.
+    '''
+
+    logging.info(f'Executing list_apps_in_mode_command with params: {params}')
+
+    if not params or "mode" not in params:
+        return generate_failure_response("Missing 'mode'")
+    
+    mode = params["mode"]
+
+    try:
+        with open(MODES_FILE, "r") as f:
+            # gets json object
+            modes = json.load(f)
+            if mode not in modes:
+                return generate_failure_response(f"Mode '{mode}' does not exist.")
+
+        app_names = [entry["name"] for entry in modes[mode]]
+        return generate_success_response(f"apps in mode {mode}: {app_names}")
+    except Exception as e:
+        logging.error(f"Failed to list apps in mode '{mode}': {str(e)}")
+        return generate_failure_response("Failed to read modes config.")
+    
+    
 
 if __name__ == '__main__':
     main()
