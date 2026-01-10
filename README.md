@@ -153,9 +153,9 @@ Tip: You can use voice or text commands. Mode and app names are case-insensitive
 
 
 ## Troubleshooting
-The plugic automatically logs all activity to 
+The plugin automatically logs all activity to:
 ```bash
-%USERPROFILE%\LaunchPad_plugin.log
+%PROGRAMDATA%\NVIDIA Corporation\nvtopps\rise\plugins\launchpad\launchpad.log
 ```
 
 It tracks:
@@ -167,20 +167,14 @@ It tracks:
 ## Developer Documentation
 
 ### Plugin Architecture
-The LaunchPad plugin is a Python-based G-Assist extension that stores user-created modes in a JSON file, mapping each mode to a list of application executable paths. It uses a command-driven architecture, continuously listening for commands from G-Assist and executing the appropriate actions to manage and launch application groups.
+The LaunchPad plugin is a Python-based G-Assist extension built on **Protocol V2** using the `gassist_sdk`. It uses a decorator-based command system where commands are registered with `@plugin.command()`. The SDK handles all communication with G-Assist, including JSON message parsing and response formatting.
 
-### Core Components
-
-#### Command Handling
-- `read_command()`: Reads JSON-formatted commands from G-Assist's input pipe
-  - Uses Windows API to read from STDIN
-  - Returns parsed JSON command or None if invalid
-  - Handles chunked input for large messages
-
-- `write_response()`: Sends JSON-formatted responses back to G-Assist
-  - Uses Windows API to write to STDOUT
-  - Appends `<<END>>` marker to indicate message completion
-  - Response format: `{"success": bool, "message": Optional[str]}`
+**Key V2 differences from V1:**
+- Uses `gassist_sdk.Plugin` class instead of manual stdin/stdout handling
+- Commands are decorated functions rather than dictionary entries
+- No manual `read_command()` / `write_response()` functions needed
+- Plugin lifecycle managed by `plugin.run()`
+- Configuration files stored in `%PROGRAMDATA%\NVIDIA Corporation\nvtopps\rise\plugins\launchpad\`
 
 ### Modes
 
@@ -237,16 +231,6 @@ To find the actual process name, open Task Manager, go to the "Details" tab, and
 If you add a useful alias, please consider submitting a pull request to add it to the main project! This helps others who may face the same issue in the future. See the [Contributing](#want-to-contribute) section for how to submit a PR.
 
 ### Available Commands
-
-### `initialize`
-Initializes the plugin and sets up the environment.
-- No parameters required
-- Returns success response with initialization status
-
-### `shutdown`
-Gracefully shuts down the plugin.
-- No parameters required
-- Returns success response with shutdown status
 
 ### `launch_mode_command`
 Launches all applications configured for a specified mode by starting each app using its saved executable path.
@@ -327,7 +311,7 @@ The command retrieves the list of apps associated with the given mode from `mode
 Returns a success response with the list of app names, or a failure response if the mode does not exist.
 
 #### Logging
-- Log file location: `%USERPROFILE%\LaunchPad_plugin.log`
+- Log file location: `%PROGRAMDATA%\NVIDIA Corporation\nvtopps\rise\plugins\launchpad\launchpad.log`
 - Logging level: INFO
 - Format: `%(asctime)s - %(levelname)s - %(message)s`
 
@@ -337,81 +321,61 @@ Returns a success response with the list of app names, or a failure response if 
 - Failed operations return a failure response with an error message
 
 ### Dependencies
-### Dependencies
 - Python 3.7+
 - Required Python packages:
+  - gassist_sdk: G-Assist SDK for Protocol V2 communication
   - psutil: For process management and app detection
+  - pywin32: For Windows API access (win32gui, win32process, win32api)
   - Standard library modules: json, logging, os, ast
 
 ### Command Processing
-The plugin processes commands through a JSON-based protocol:
+The plugin uses the `gassist_sdk` for Protocol V2 communication. Commands are registered using the `@plugin.command()` decorator:
 
-1. Input Format:
-```json
-{
-    "tool_calls": [
-        {
-            "func": "command_name",
-            "params": {
-                "param1": "value1",
-                "param2": "value2"
-            }
-        }
-    ]
-}
+```python
+@plugin.command("command_name")
+def command_name(param1: str = None, param2: str = None):
+    """Command description."""
+    # Implementation
+    return "Response message"
 ```
 
-2. Output Format:
-```json
-{
-    "success": true|false,
-    "message": "Optional message"
-}
-```
+The SDK handles all JSON parsing and response formatting automatically. Commands simply return a string message.
 
 ### Adding New Commands
 To add a new command:
-1. Implement command function with signature: `def new_command(params: dict = None, context: dict = None, system_info: dict = None) -> dict`
-2. Add command to `commands` dictionary in `main()`
-3. Implement proper error handling and logging
-4. Return standardized response using `generate_success_response()` or `generate_failure_response()`
-5. Add the function to the `functions` list in `manifest.json` file: 
+
+1. Add a new decorated function in `plugin.py`:
+   ```python
+   @plugin.command("new_command")
+   def new_command(param1: str = None):
+       """Description of what the command does."""
+       logger.info(f"Executing new_command with param1: {param1}")
+       
+       # Your implementation here
+       
+       return "Success message"
+   ```
+
+2. Add the function to the `functions` list in `manifest.json`:
    ```json
    {
       "name": "new_command",
       "description": "Description of what the command does",
       "tags": ["relevant", "tags"],
       "properties": {
-      "parameter_name": {
-         "type": "string",
-         "description": "Description of the parameter"
-      }
+         "param1": {
+            "type": "string",
+            "description": "Description of the parameter"
+         }
       }
    }
    ```
-6. Manually test the function:
 
-   First, run the script:
-   ``` bash
-   python plugin.py
+3. Test the plugin by running:
+   ```bash
+   .\setup.bat launchpad -deploy
    ```
-
-   Run the initialize command: 
-      ``` json
-      {
-         "tool_calls" : "initialize"
-      }
-      ```
-   Run the new command:
-      ``` json
-      {
-         "tool_calls" : "new_command", 
-         "params": {
-            "parameter_name": "parameter_value"
-         }
-      }
-      ```
-7. Run the setup & build scripts as outlined above, install the plugin by placing the files in the proper location and test your updated plugin. Use variations of standard user messages to make sure the function is adequately documented in the `manifest.json`
+   Then restart G-Assist and test your command with voice or text input.
 
 
 ## Want to Contribute?

@@ -1,6 +1,10 @@
 {
   "manifestVersion": 1,
-  "executable": "./g-assist-plugin-launchpad.exe",
+  "name": "Launchpad",
+  "version": "1.0.1",
+  "description": "Launches a custom sets of applications based on user-defined modes.",
+  "protocol_version": "2.0",
+  "executable": "plugin.py",
   "persistent": true,
   "functions": [
     {
