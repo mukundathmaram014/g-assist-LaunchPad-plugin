@@ -1,0 +1,6 @@
+# G-Assist LaunchPad Plugin Dependencies
+# These packages will be pip installed to libs/ by setup
+# Note: gassist_sdk is copied from the SDK folder (not on PyPI)
+
+psutil>=5.9.0
+pywin32>=223
